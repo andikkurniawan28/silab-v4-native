@@ -66,6 +66,20 @@ if ($result) {
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
+            aria-expanded="true" aria-controls="collapseMaster">
+            <i class="fas fa-fw fa-database"></i>
+            <span>Master</span>
+        </a>
+        <div id="collapseMaster" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu :</h6>
+                <a class="collapse-item" href="user_index.php">User</a>
+            </div>
+        </div>
+    </li>
     <hr class="sidebar-divider">
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
