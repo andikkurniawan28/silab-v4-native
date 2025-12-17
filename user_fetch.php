@@ -3,9 +3,10 @@ include('db.php');
 
 $columns = [
     'users.id',
+    'roles.name',
     'users.name',
     'users.username',
-    'roles.name'
+    'users.is_active'
 ];
 
 $limit  = $_POST['length'];
@@ -31,14 +32,14 @@ $totalData = $conn->query("
 /* total filtered */
 $totalFiltered = $conn->query("
     SELECT COUNT(*) 
-    FROM users 
+    FROM users
     LEFT JOIN roles ON roles.id = users.role_id
     $where
 ")->fetch_row()[0];
 
 /* data utama */
 $sql = "
-    SELECT 
+    SELECT
         users.id,
         users.name,
         users.username,
@@ -56,20 +57,23 @@ $query = $conn->query($sql);
 $data = [];
 
 while ($row = $query->fetch_assoc()) {
+
+    $status = $row['is_active']
+        ? '<span class="badge badge-success">Aktif</span>'
+        : '<span class="badge badge-secondary">Nonaktif</span>';
+
     $data[] = [
         'id' => $row['id'],
+        'role' => $row['role'],
         'name' => $row['name'],
         'username' => $row['username'],
-        'role' => $row['role'],
-        'is_active' => $row['is_active'] 
-            ? '<span class="badge badge-success">Aktif</span>'
-            : '<span class="badge badge-secondary">Nonaktif</span>',
+        'is_active' => $status,
         'action' => '
-            <button class="btn btn-warning btn-sm" 
-                onclick="editUser('.$row['id'].')">
+            <a href="user_edit.php?id='.$row['id'].'" 
+               class="btn btn-warning btn-sm">
                 Edit
-            </button>
-            <button class="btn btn-danger btn-sm" 
+            </a>
+            <button class="btn btn-danger btn-sm"
                 onclick="deleteUser('.$row['id'].')">
                 Hapus
             </button>

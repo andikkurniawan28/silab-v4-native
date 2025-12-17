@@ -77,6 +77,14 @@ if ($result) {
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu :</h6>
                 <a class="collapse-item" href="user_index.php">User</a>
+                <a class="collapse-item" href="role_index.php">Role</a>
+                <a class="collapse-item" href="station_index.php">Stasiun</a>
+                <a class="collapse-item" href="indicator_index.php">Indikator</a>
+                <a class="collapse-item" href="factor_index.php">Faktor</a>
+                <a class="collapse-item" href="material_index.php">Material</a>
+                <a class="collapse-item" href="kspot_index.php">Titik Keliling</a>
+                <a class="collapse-item" href="tspot_index.php">Titik Taksasi</a>
+                <a class="collapse-item" href="chemical_index.php">Bahan Pembantu Proses</a>
             </div>
         </div>
     </li>

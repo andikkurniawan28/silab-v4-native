@@ -43,11 +43,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 <!-- ================= VIEW ================= -->
 <div class="container-fluid">
 
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h4 class="m-0 font-weight-bold text-primary">
-            Cetak Barcode <?= htmlspecialchars($station); ?>
-        </h4>
-    </div>
+    <h4 class="mb-3">Cetak Barcode <?= htmlspecialchars($station); ?></h4>
 
     <!-- Content Row -->
     <div class="row">

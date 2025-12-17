@@ -38,12 +38,8 @@ while ($row = mysqli_fetch_assoc($resultMaterial)) {
 
 <!-- VIEW -->
 <div class="container-fluid">
-
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h4 class="m-0 font-weight-bold text-primary">
-            Hasil Analisa <?= htmlspecialchars($station_name); ?>
-        </h4>
-    </div>
+        
+    <h4 class="mb-3">Hasil Analisa <?= htmlspecialchars($station_name); ?></h4>
 
     <div class="row">
 
