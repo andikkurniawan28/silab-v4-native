@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('session_manager.php');
 
 if (!empty($_POST['password'])) {
 
@@ -43,5 +43,10 @@ if (!empty($_POST['password'])) {
 
 $stmt->execute();
 
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data berhasil diupdate'
+];
 header("Location: user_index.php");
 exit;

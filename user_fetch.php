@@ -70,14 +70,16 @@ while ($row = $query->fetch_assoc()) {
         'is_active' => $status,
         'action' => '
             <a href="user_edit.php?id='.$row['id'].'" 
-               class="btn btn-warning btn-sm">
+            class="btn btn-warning btn-sm">
                 Edit
             </a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteUser('.$row['id'].')">
+            <a href="user_delete.php?id='.$row['id'].'"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm(\'Hapus user ini?\')">
                 Hapus
-            </button>
+            </a>
         '
+
     ];
 }
 

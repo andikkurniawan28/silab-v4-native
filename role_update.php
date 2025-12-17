@@ -1,9 +1,45 @@
 <?php
 include('db.php');
 
-$stmt = $conn->prepare("UPDATE roles SET name=? WHERE id=?");
-$stmt->bind_param("si", $_POST['name'], $_POST['id']);
-$stmt->execute();
+if (empty($_POST['id']) || empty($_POST['name'])) {
+    die('Data tidak valid');
+}
+
+$id   = intval($_POST['id']);
+$name = mysqli_real_escape_string($conn, $_POST['name']);
+
+/**
+ * Update nama role
+ */
+$conn->query("
+    UPDATE roles
+    SET name = '$name'
+    WHERE id = $id
+");
+
+/**
+ * Reset permissions lama
+ */
+$conn->query("
+    DELETE FROM permissions
+    WHERE role_id = $id
+");
+
+/**
+ * Insert permissions baru
+ */
+if (!empty($_POST['features']) && is_array($_POST['features'])) {
+
+    foreach ($_POST['features'] as $feature_id) {
+
+        $feature_id = intval($feature_id);
+
+        $conn->query("
+            INSERT INTO permissions (role_id, feature_id)
+            VALUES ($id, $feature_id)
+        ");
+    }
+}
 
 header("Location: role_index.php");
 exit;

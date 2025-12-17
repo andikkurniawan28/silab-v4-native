@@ -45,21 +45,5 @@ $(function () {
         ]
     });
 
-    $('#addForm').submit(function(e){
-        e.preventDefault();
-        $.post('user_store.php', $(this).serialize(), function(){
-            $('#addModal').modal('hide');
-            table.ajax.reload();
-        });
-    });
-
 });
-
-function deleteUser(id){
-    if(confirm('Hapus user ini?')){
-        $.post('user_delete.php', {id:id}, function(){
-            $('#userTable').DataTable().ajax.reload();
-        });
-    }
-}
 </script>

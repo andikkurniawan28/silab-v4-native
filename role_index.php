@@ -13,6 +13,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nama Role</th>
+                <th>Fitur</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -34,6 +35,7 @@ $(function () {
         columns: [
             { data: 'id' },
             { data: 'name' },
+            { data: 'fitur' },
             { data: 'action', orderable:false }
         ]
     });

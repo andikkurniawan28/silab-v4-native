@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('session_manager.php');
 
 $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
@@ -19,5 +19,10 @@ $stmt->bind_param(
 
 $stmt->execute();
 
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data berhasil disimpan'
+];
 header("Location: user_index.php");
 exit;

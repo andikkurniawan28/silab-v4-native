@@ -5,8 +5,8 @@ $columns = ['id','name'];
 
 $limit  = $_POST['length'];
 $start  = $_POST['start'];
-$order  = $columns[$_POST['order'][0]['column']];
-$dir    = $_POST['order'][0]['dir'];
+$order  = $columns[$_POST['order'][0]['column']] ?? 'id';
+$dir    = $_POST['order'][0]['dir'] ?? 'asc';
 $search = $_POST['search']['value'];
 
 $where = '';
@@ -33,15 +33,39 @@ $sql = "
 ";
 
 $query = $conn->query($sql);
-
 $data = [];
 
 while ($row = $query->fetch_assoc()) {
+
+    /**
+     * Ambil fitur per role
+     */
+    $featQ = $conn->query("
+        SELECT f.judul
+        FROM permissions p
+        JOIN features f ON f.id = p.feature_id
+        WHERE p.role_id = {$row['id']}
+        ORDER BY f.judul ASC
+    ");
+
+    $fitur = '<ul class="mb-0 pl-3">';
+
+    if ($featQ->num_rows > 0) {
+        while ($f = $featQ->fetch_assoc()) {
+            $fitur .= '<li>'.htmlspecialchars($f['judul']).'</li>';
+        }
+    } else {
+        $fitur .= '<li><em>-</em></li>';
+    }
+
+    $fitur .= '</ul>';
+
     $data[] = [
-        'id' => $row['id'],
-        'name' => $row['name'],
+        'id'    => $row['id'],
+        'name'  => $row['name'],
+        'fitur' => $fitur,
         'action' => '
-            <a href="role_edit.php?id='.$row['id'].'" 
+            <a href="role_edit.php?id='.$row['id'].'"
                class="btn btn-warning btn-sm">
                 Edit
             </a>

@@ -57,8 +57,15 @@ while($r = $q->fetch_assoc()){
         'timestamp_riil' => $r['timestamp_riil'],
         'action' => '
             <a href="cetak_barcode_show.php?id='.$r['id'].'"
-               target="_blank"
-               class="btn btn-info btn-sm">Cetak</a>
+            target="_blank"
+            class="btn btn-info btn-sm mb-1">Cetak</a>
+
+            <a href="edit_material_barcode.php?id='.$r['id'].'"
+            class="btn btn-warning btn-sm mb-1">Edit Material</a>
+
+            <a href="edit_timestamp_barcode.php?id='.$r['id'].'"
+            class="btn btn-secondary btn-sm mb-1">Edit Timestamp</a>
+
             <button class="btn btn-danger btn-sm"
                 onclick="deleteBarcode('.$r['id'].')">Hapus</button>
         '

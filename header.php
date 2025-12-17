@@ -1,12 +1,6 @@
 <?php
 session_start();
-include('db.php');
-
-if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
-    $_SESSION['intended_url'] = $_SERVER['REQUEST_URI'];
-    header("Location: login.php?error=Silakan login terlebih dahulu");
-    exit;
-}
+include('session_manager.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
