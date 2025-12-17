@@ -58,11 +58,25 @@ if ($result) {
 
                 <?php foreach ($stations as $station): ?>
                     <a class="collapse-item"
-                    href="cetak_barcode.php?station_id=<?= $station['id']; ?>">
+                        href="cetak_barcode.php?station_id=<?= $station['id']; ?>">
                         <?= htmlspecialchars($station['name']); ?>
                     </a>
                 <?php endforeach; ?>
 
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInputDataOffFarm"
+            aria-expanded="true" aria-controls="collapseInputDataOffFarm">
+            <i class="fas fa-fw fa-edit"></i>
+            <span>Input Data Off Farm</span>
+        </a>
+        <div id="collapseInputDataOffFarm" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu :</h6>
+                <a class="collapse-item" href="analisa_index.php">Analisa</a>
             </div>
         </div>
     </li>
@@ -85,6 +99,7 @@ if ($result) {
                 <a class="collapse-item" href="kspot_index.php">Titik Keliling</a>
                 <a class="collapse-item" href="tspot_index.php">Titik Taksasi</a>
                 <a class="collapse-item" href="chemical_index.php">Bahan Pembantu Proses</a>
+                <a class="collapse-item" href="barcode_index.php">Barcode</a>
             </div>
         </div>
     </li>
