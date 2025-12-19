@@ -66,8 +66,11 @@ while($r = $q->fetch_assoc()){
             <a href="edit_timestamp_barcode.php?id='.$r['id'].'"
             class="btn btn-secondary btn-sm mb-1">Edit Timestamp</a>
 
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteBarcode('.$r['id'].')">Hapus</button>
+            <a href="barcode_delete.php?id='.$r['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus barcode ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

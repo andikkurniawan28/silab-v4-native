@@ -3,8 +3,7 @@ include('db.php');
 
 $columns = [
     'a.id',
-    'm.name',
-    'a.is_verified'
+    'm.name'
 ];
 
 $limit  = $_POST['length'];
@@ -13,13 +12,15 @@ $order  = $columns[$_POST['order'][0]['column']] ?? 'a.id';
 $dir    = $_POST['order'][0]['dir'] ?? 'desc';
 $search = $_POST['search']['value'];
 
-$where = '';
+$where = "WHERE a.is_verified = 0";
 if ($search) {
-    $where = "WHERE a.id LIKE '%$search%' OR m.name LIKE '%$search%'";
+    $where .= " AND (a.id LIKE '%$search%' OR m.name LIKE '%$search%')";
 }
 
 $totalData = $conn->query("
-    SELECT COUNT(*) FROM analisa_off_farm_new
+    SELECT COUNT(*) 
+    FROM analisa_off_farm_new
+    WHERE is_verified = 0
 ")->fetch_row()[0];
 
 $totalFiltered = $conn->query("
@@ -30,10 +31,9 @@ $totalFiltered = $conn->query("
 ")->fetch_row()[0];
 
 $sql = "
-    SELECT a.*, m.name AS material, u.name AS user 
+    SELECT a.*, m.name AS material
     FROM analisa_off_farm_new a
     JOIN materials m ON m.id=a.material_id
-    LEFT JOIN users u ON u.id = a.user_id
     $where
     ORDER BY a.id DESC
     LIMIT $start,$limit
@@ -44,7 +44,6 @@ $data = [];
 
 while ($row = $q->fetch_assoc()) {
 
-    // Ambil indikator berdasarkan material
     $indQ = $conn->query("
         SELECT i.name
         FROM methods md
@@ -55,31 +54,16 @@ while ($row = $q->fetch_assoc()) {
     $hasil = '<ul class="mb-0 pl-3">';
     while ($ind = $indQ->fetch_assoc()) {
         $col = ucwords(str_replace(' ', '_', $ind['name']));
-        $value = isset($row[$col]) && $row[$col] !== ''
-            ? $row[$col]
-            : '-';
-
+        $value = $row[$col] ?? '-';
         $hasil .= "<li>{$ind['name']} : {$value}</li>";
     }
     $hasil .= '</ul>';
 
-    // Status badge
-    if ($row['is_verified'] == 1) {
-        $statusBadge = '<span class="badge badge-success">Sudah diverifikasi</span>';
-    } else {
-        $statusBadge = '<span class="badge badge-dark text-white">Belum diverifikasi</span>';
-    }
-
     $data[] = [
+        'check' => '<input type="checkbox" class="row-check" name="ids[]" value="'.$row['id'].'">',
         'id' => $row['id'],
         'material' => $row['material'],
-        'user' => $row['user'],
-        'hasil_analisa' => $hasil,
-        'status' => $statusBadge,
-        'action' => '
-            <a href="analisa_edit.php?id='.$row['id'].'"
-               class="btn btn-success btn-sm">Edit</a>
-        '
+        'hasil_analisa' => $hasil
     ];
 }
 

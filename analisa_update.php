@@ -1,6 +1,5 @@
 <?php
-session_start();
-include('db.php');
+include('session_manager.php');
 
 if (!isset($_SESSION['user_id'])) {
     die('Akses ditolak');
@@ -64,5 +63,10 @@ if (!$conn->query($sql)) {
     die('Gagal update: ' . $conn->error);
 }
 
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data berhasil diupdate'
+];
 header("Location: analisa_index.php");
 exit;

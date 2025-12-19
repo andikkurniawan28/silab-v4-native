@@ -11,8 +11,9 @@
                 <tr>
                     <th>ID</th>
                     <th>Material</th>
-                    <th>Hasil Analisa</th>
+                    <th>Hasil</th>
                     <th>Status</th>
+                    <th>User</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -37,6 +38,7 @@ $(function () {
             { data: 'material' },
             { data: 'hasil_analisa', orderable:false, searchable:false },
             { data: 'status' },
+            { data: 'user' },
             { data: 'action', orderable:false, searchable:false }
         ]
     });

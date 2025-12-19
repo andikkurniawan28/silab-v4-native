@@ -39,8 +39,11 @@ while($r = $q->fetch_assoc()){
         'action' => '
             <a href="tspot_edit.php?id='.$r['id'].'"
                class="btn btn-warning btn-sm">Edit</a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deletetspot('.$r['id'].')">Hapus</button>
+            <a href="tspot_delete.php?id='.$r['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus titik taksasi ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

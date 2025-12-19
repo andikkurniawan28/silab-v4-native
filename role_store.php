@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('session_manager.php');
 
 if (empty($_POST['name'])) {
     die('Nama role wajib diisi');
@@ -33,5 +33,10 @@ if (!empty($_POST['features']) && is_array($_POST['features'])) {
     }
 }
 
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data berhasil disimpan'
+];
 header("Location: role_index.php");
 exit;

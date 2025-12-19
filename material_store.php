@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('session_manager.php');
 
 $conn->begin_transaction();
 
@@ -29,9 +29,19 @@ try {
     }
 
     $conn->commit();
+    $_SESSION['flash'] = [
+        'type' => 'success',
+        'title' => 'Berhasil',
+        'message' => 'Data berhasil disimpan'
+    ];
     header("Location: material_index.php");
 
 } catch(Exception $e){
     $conn->rollback();
-    echo "Error";
+    $_SESSION['flash'] = [
+        'type' => 'error',
+        'title' => 'Gagal simpan',
+        'message' => 'Data gagal disimpan'
+    ];
+    header("Location: material_index.php");
 }

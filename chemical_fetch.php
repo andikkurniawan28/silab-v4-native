@@ -39,8 +39,11 @@ while($r = $q->fetch_assoc()){
         'action' => '
             <a href="chemical_edit.php?id='.$r['id'].'"
                class="btn btn-warning btn-sm">Edit</a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deletechemical('.$r['id'].')">Hapus</button>
+            <a href="chemical_delete.php?id='.$r['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus bahan pembantu proses ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

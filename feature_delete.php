@@ -1,10 +1,16 @@
 <?php
-include('db.php');
+include('session_manager.php');
 
-$id = intval($_POST['id']);
+$id = intval($_GET['id']);
 
 $conn->query("
     DELETE FROM features WHERE id='$id'
 ");
 
-echo 'ok';
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data berhasil dihapus'
+];
+header("Location: feature_index.php");
+exit;

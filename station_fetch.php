@@ -45,10 +45,11 @@ while ($row = $query->fetch_assoc()) {
                class="btn btn-warning btn-sm">
                 Edit
             </a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteStation('.$row['id'].')">
-                Hapus
-            </button>
+            <a href="station_delete.php?id='.$row['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus stasiun ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

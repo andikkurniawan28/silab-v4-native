@@ -29,10 +29,8 @@ $analisa = $q->fetch_assoc();
  */
 $indicators = $conn->query("
     SELECT i.*
-    FROM methods md
-    JOIN indicators i ON i.id = md.indicator_id
-    WHERE md.material_id = '{$analisa['material_id']}'
-    ORDER BY i.name ASC
+    FROM indicators i
+    ORDER BY i.id ASC
 ");
 ?>
 

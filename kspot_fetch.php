@@ -39,8 +39,11 @@ while($r = $q->fetch_assoc()){
         'action' => '
             <a href="kspot_edit.php?id='.$r['id'].'"
                class="btn btn-warning btn-sm">Edit</a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteKspot('.$r['id'].')">Hapus</button>
+            <a href="kspot_delete.php?id='.$r['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus titik keliling ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

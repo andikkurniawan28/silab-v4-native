@@ -43,10 +43,11 @@ while ($row = $query->fetch_assoc()) {
                class="btn btn-warning btn-sm">
                 Edit
             </a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteFactor('.$row['id'].')">
-                Hapus
-            </button>
+            <a href="factor_delete.php?id='.$row['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus faktor ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

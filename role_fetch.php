@@ -69,10 +69,11 @@ while ($row = $query->fetch_assoc()) {
                class="btn btn-warning btn-sm">
                 Edit
             </a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteRole('.$row['id'].')">
-                Hapus
-            </button>
+            <a href="role_delete.php?id='.$row['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus role ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

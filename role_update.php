@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('session_manager.php');
 
 if (empty($_POST['id']) || empty($_POST['name'])) {
     die('Data tidak valid');
@@ -41,5 +41,10 @@ if (!empty($_POST['features']) && is_array($_POST['features'])) {
     }
 }
 
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data berhasil diupdate'
+];
 header("Location: role_index.php");
 exit;

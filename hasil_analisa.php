@@ -1,7 +1,6 @@
 <?php include('header.php'); ?>
 
 <?php
-// 1. Ambil station_id
 $station_id = $_GET['station_id'] ?? null;
 
 if (!$station_id) {
@@ -10,63 +9,122 @@ if (!$station_id) {
     exit;
 }
 
-// 2. Ambil nama station
-$station_name = '';
-$stmtStation = mysqli_prepare($conn, "SELECT name FROM stations WHERE id = ?");
-mysqli_stmt_bind_param($stmtStation, "i", $station_id);
-mysqli_stmt_execute($stmtStation);
-$resultStation = mysqli_stmt_get_result($stmtStation);
+/**
+ * Station
+ */
+$station = $conn->query("
+    SELECT name FROM stations WHERE id = $station_id
+")->fetch_assoc();
 
-if ($rowStation = mysqli_fetch_assoc($resultStation)) {
-    $station_name = $rowStation['name'];
-}
-
-// 3. Ambil data materials berdasarkan station_id
-$materials = [];
-$stmtMaterial = mysqli_prepare(
-    $conn,
-    "SELECT id, name FROM materials WHERE station_id = ? ORDER BY id ASC"
-);
-mysqli_stmt_bind_param($stmtMaterial, "i", $station_id);
-mysqli_stmt_execute($stmtMaterial);
-$resultMaterial = mysqli_stmt_get_result($stmtMaterial);
-
-while ($row = mysqli_fetch_assoc($resultMaterial)) {
-    $materials[] = $row;
-}
+/**
+ * Materials (SEMUA)
+ */
+$materialsQ = $conn->query("
+    SELECT id, name
+    FROM materials
+    WHERE station_id = $station_id
+    ORDER BY id ASC
+");
 ?>
 
-<!-- VIEW -->
 <div class="container-fluid">
-        
-    <h4 class="mb-3">Hasil Analisa <?= htmlspecialchars($station_name); ?></h4>
+
+    <h4 class="mb-4">Hasil Analisa <?= htmlspecialchars($station['name']); ?></h4>
 
     <div class="row">
 
-        <?php if (count($materials) > 0): ?>
-            <?php foreach ($materials as $material): ?>
-                <div class="col-lg-6 mb-4">
-                    <div class="card bg-dark text-white text-sm shadow">
-                        <div class="card-body">
+        <?php while ($material = $materialsQ->fetch_assoc()): ?>
 
-                            <div class="font-weight-bold text-light text-uppercase mb-1">
-                                <a href="hasil_analisa_detail.php?material_id=<?= $material['id']; ?>"
-                                   class="text-light">
-                                    <?= htmlspecialchars($material['name']); ?>
-                                </a>
+            <?php
+            $material_id = $material['id'];
+
+            /**
+             * Indikator material
+             */
+            $indQ = $conn->query("
+                SELECT i.id, i.name
+                FROM methods m
+                JOIN indicators i ON i.id = m.indicator_id
+                WHERE m.material_id = $material_id
+                ORDER BY i.id ASC
+            ");
+
+            $indicators = [];
+            while ($i = $indQ->fetch_assoc()) {
+                $indicators[] = $i;
+            }
+
+            /**
+             * Analisa (limit 5, verified)
+             */
+            $anaQ = $conn->query("
+                SELECT *
+                FROM analisa_off_farm_new
+                WHERE material_id = $material_id
+                  AND is_verified = 1
+                ORDER BY created_at DESC
+                LIMIT 5
+            ");
+
+            $analisa = [];
+            while ($a = $anaQ->fetch_assoc()) {
+                $analisa[] = $a;
+            }
+            ?>
+
+            <!-- CARD -->
+            <div class="col-md-<?php if(count($indicators) >= 8) echo "12"; else echo "6"; ?> mb-4">
+                <div class="card shadow h-100">
+
+                    <div class="card-header bg-dark text-white font-weight-bold">
+                        <?= htmlspecialchars($material['name']); ?>
+                    </div>
+
+                    <div class="card-body p-0">
+
+                        <?php if (count($analisa) > 0): ?>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-sm mb-0 text-center text-sm">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Waktu</th>
+                                            <?php foreach ($indicators as $ind): ?>
+                                                <th><?= htmlspecialchars($ind['name']); ?></th>
+                                            <?php endforeach; ?>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($analisa as $row): ?>
+                                            <tr>
+                                                <td>
+                                                    <?= date('d-m-Y H:i', strtotime($row['created_at'])); ?>
+                                                </td>
+                                                <?php foreach ($indicators as $ind): ?>
+                                                    <td>
+                                                        <?= $row[$ind['name']] ?? '-'; ?>
+                                                    </td>
+                                                <?php endforeach; ?>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
 
-                        </div>
+                        <?php else: ?>
+
+                            <div class="p-3 text-center text-muted">
+                                Belum ada data analisa
+                            </div>
+
+                        <?php endif; ?>
+
                     </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="col-12">
-                <div class="alert alert-warning">
-                    Tidak ada material untuk station ini.
+
                 </div>
             </div>
-        <?php endif; ?>
+
+        <?php endwhile; ?>
 
     </div>
 </div>

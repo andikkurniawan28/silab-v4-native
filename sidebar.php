@@ -19,7 +19,7 @@ if ($result) {
         <div class="sidebar-brand-icon">
             <img src="/silab-v4/admin_template/img/QC.png" width="50" height="50" alt="Logo QC">
         </div>
-        <div class="sidebar-brand-text mx-3">SILAB</div>
+        <div class="sidebar-brand-text mx-3">SILAB<sub>V4</sub></div>
     </a>
     <hr class="sidebar-divider my-0">
     <li class="nav-item">
@@ -77,6 +77,10 @@ if ($result) {
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu :</h6>
                 <a class="collapse-item" href="analisa_index.php">Analisa</a>
+                <a class="collapse-item" href="verifikasi_mandor_index.php">Verifikasi Mandor</a>
+                <a class="collapse-item" href="analisa_ampas_index.php">Analisa Ampas</a>
+                <a class="collapse-item" href="analisa_ampas_john_payne_index.php">Analisa Ampas J.Payne</a>
+                <a class="collapse-item" href="analisa_ketel_index.php">Analisa Ketel</a>
             </div>
         </div>
     </li>

@@ -70,10 +70,11 @@ while($r = $q->fetch_assoc()){
                class="btn btn-warning btn-sm">
                Edit
             </a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteMaterial('.$r['id'].')">
-                Hapus
-            </button>
+            <a href="material_delete.php?id='.$r['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus material ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }

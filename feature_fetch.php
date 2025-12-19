@@ -43,8 +43,11 @@ while($r = $q->fetch_assoc()){
         'action' => '
             <a href="feature_edit.php?id='.$r['id'].'"
                class="btn btn-warning btn-sm">Edit</a>
-            <button class="btn btn-danger btn-sm"
-                onclick="deleteFeature('.$r['id'].')">Hapus</button>
+            <a href="feature_delete.php?id='.$r['id'].'"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm(\'Hapus fitur ini?\')">
+                    Hapus
+            </a>
         '
     ];
 }
