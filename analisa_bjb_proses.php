@@ -10,7 +10,7 @@ $conn->query("
     SET
         BJB = ".($bjb !== null ? "'$bjb'" : "NULL").",
         CV  = ".($cv !== null ? "'$cv'" : "NULL")."
-    WHERE sample_id = $sample_id
+    WHERE id = $sample_id
 ");
 
 $_SESSION['flash'] = [
