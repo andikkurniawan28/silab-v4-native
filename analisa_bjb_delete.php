@@ -1,0 +1,19 @@
+<?php
+include('session_manager.php');
+
+$id = intval($_GET['id']);
+
+$conn->query("
+    UPDATE analisa_off_farm_new
+    SET BJB = NULL, CV = NULL
+    WHERE id = $id
+");
+
+$_SESSION['flash'] = [
+    'type' => 'success',
+    'title' => 'Berhasil',
+    'message' => 'Data BJB berhasil dihapus'
+];
+
+header('Location: analisa_bjb_index.php');
+exit;
