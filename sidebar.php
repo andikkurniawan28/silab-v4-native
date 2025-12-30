@@ -85,6 +85,13 @@ if ($result) {
                 <a class="collapse-item" href="analisa_so2_index.php">Analisa SO<sub>2</sub></a>
                 <a class="collapse-item" href="analisa_bjb_index.php">Analisa BJB</a>
                 <a class="collapse-item" href="balance_index.php">Flow</a>
+                <a class="collapse-item" href="imbibition_index.php">Imbibisi</a>
+                <a class="collapse-item" href="keliling_proses_index.php">Keliling Proses</a>
+                <a class="collapse-item" href="penggunaan_bpp_index.php">Penggunaan BPP</a>
+                <a class="collapse-item" href="timbangan_tetes_index.php">Tetes per Charge</a>
+                <a class="collapse-item" href="timbangan_rs_in_index.php">RS IN per Charge</a>
+                <a class="collapse-item" href="timbangan_rs_out_index.php">RS OUT per Charge</a>
+                <a class="collapse-item" href="timbangan_reject_index.php">Reject per Charge</a>
             </div>
         </div>
     </li>

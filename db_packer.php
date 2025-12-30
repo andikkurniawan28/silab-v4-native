@@ -4,7 +4,7 @@ date_default_timezone_set('Asia/Jakarta');
 $host     = "192.168.20.234";
 $username = "andik";
 $password = "andik";
-$database = "silab";
+$database = "qc";
 
 // Membuat koneksi
 $conn = mysqli_connect($host, $username, $password, $database);

@@ -1,157 +1,124 @@
-<?php
-include('header.php');
-?>
+<?php include('header.php'); ?>
 
 <div class="container-fluid">
     <h4 class="mb-3">Flow</h4>
 
-    <div class="card shadow mb-4">
-        <div class="card-body">
+    <div class="row">
 
-            <form method="POST" action="balance_proses.php" class="text-dark mb-4">
-            <?php $current_hour = date('H') - 1; ?>
-
-            <!-- ROW 1 : Tanggal & Jam -->
-            <div class="form-row mb-3">
-                <div class="col-md-3">
-                    <label>Tanggal</label>
-                    <input
-                        type="date"
-                        name="date"
-                        class="form-control"
-                        value="<?= date('Y-m-d') ?>"
-                        required
-                    >
+        <!-- ================= FORM (COL 4) ================= -->
+        <div class="col-md-3">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <strong>Input Flow</strong>
                 </div>
+                <div class="card-body">
 
-                <div class="col-md-3">
-                    <label>Jam</label>
-                    <select class="form-control" name="created_at">
-                        <?php for ($i = 0; $i <= 23; $i++): ?>
-                            <option value="<?= $i ?>" <?= ($current_hour == $i) ? 'selected' : '' ?>>
-                                <?= $i ?>:00 - <?= $i + 1 ?>:00
-                            </option>
-                        <?php endfor; ?>
-                    </select>
-                </div>
-            </div>
+                    <?php $current_hour = date('H') - 1; ?>
 
-            <!-- ROW 2 : Tebu & Totalizer Pemurnian -->
-            <div class="form-row mb-3">
-                <div class="col-md-3">
-                    <label>Tebu</label>
-                    <input
-                        type="number"
-                        step="any"
-                        name="tebu"
-                        class="form-control"
-                        required
-                    >
-                </div>
+                    <form method="POST" action="balance_proses.php" class="text-dark">
 
-                <div class="col-md-3">
-                    <label>Totalizer Pemurnian</label>
-                    <input
-                        type="number"
-                        step="any"
-                        name="totalizer"
-                        class="form-control"
-                        required
-                    >
-                </div>
-            </div>
+                        <!-- Tanggal -->
+                        <div class="form-group">
+                            <label>Tanggal</label>
+                            <input type="date" name="date" class="form-control"
+                                   value="<?= date('Y-m-d') ?>" required>
+                        </div>
 
-            <!-- ROW 3 : Totalizer Gilingan & Decanter 1st -->
-            <div class="form-row mb-3">
-                <div class="col-md-3">
-                    <label>Totalizer Gilingan</label>
-                    <input
-                        type="number"
-                        step="any"
-                        name="totalizer_gilingan"
-                        class="form-control"
-                        required
-                    >
-                </div>
+                        <!-- Jam -->
+                        <div class="form-group">
+                            <label>Jam</label>
+                            <select class="form-control" name="created_at">
+                                <?php for ($i = 0; $i <= 23; $i++): ?>
+                                    <option value="<?= $i ?>" <?= ($current_hour == $i) ? 'selected' : '' ?>>
+                                        <?= $i ?>:00 - <?= $i + 1 ?>:00
+                                    </option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
 
-                <div class="col-md-3">
-                    <label>Totalizer Decanter 1st</label>
-                    <input
-                        type="number"
-                        step="any"
-                        name="totalizer_decanter_1st"
-                        class="form-control"
-                        required
-                    >
+                        <!-- Tebu -->
+                        <div class="form-group">
+                            <label>Tebu</label>
+                            <input type="number" step="any" name="tebu" class="form-control" required>
+                        </div>
+
+                        <!-- Totalizer Pemurnian -->
+                        <div class="form-group">
+                            <label>Totalizer Pemurnian</label>
+                            <input type="number" step="any" name="totalizer" class="form-control" required>
+                        </div>
+
+                        <!-- Totalizer Gilingan -->
+                        <div class="form-group">
+                            <label>Totalizer Gilingan</label>
+                            <input type="number" step="any" name="totalizer_gilingan" class="form-control" required>
+                        </div>
+
+                        <!-- Decanter 1st -->
+                        <div class="form-group">
+                            <label>Totalizer Decanter 1<sup>st</sup></label>
+                            <input type="number" step="any" name="totalizer_decanter_1st" class="form-control" required>
+                        </div>
+
+                        <!-- Decanter 2nd -->
+                        <div class="form-group">
+                            <label>Totalizer Decanter 2<sup>nd</sup></label>
+                            <input type="number" step="any" name="totalizer_decanter_2nd" class="form-control" required>
+                        </div>
+
+                        <!-- SFC -->
+                        <div class="form-group">
+                            <label>SFC</label>
+                            <input type="number" step="any" name="sfc" class="form-control" required>
+                        </div>
+
+                        <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
+
+                        <button class="btn btn-primary btn-block">
+                            Simpan
+                        </button>
+                    </form>
+
                 </div>
             </div>
-
-            <!-- ROW 4 : Decanter 2nd & SFC -->
-            <div class="form-row mb-3">
-                <div class="col-md-3">
-                    <label>Totalizer Decanter 2nd</label>
-                    <input
-                        type="number"
-                        step="any"
-                        name="totalizer_decanter_2nd"
-                        class="form-control"
-                        required
-                    >
-                </div>
-
-                <div class="col-md-3">
-                    <label>SFC</label>
-                    <input
-                        type="number"
-                        step="any"
-                        name="sfc"
-                        class="form-control"
-                        required
-                    >
-                </div>
-            </div>
-
-            <!-- Hidden user -->
-            <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
-
-            <!-- Submit -->
-            <div class="form-row">
-                <div class="col-md-6">
-                    <button class="btn btn-primary">
-                        Simpan
-                    </button>
-                </div>
-            </div>
-        </form>
-
-
-            <div class="table-responsive">
-
-            <table id="balanceTable" class="table table-bordered" width="100%">
-                <thead>
-                    <tr>
-                        <th>ID</td>
-                        <th>Timestamp</td>
-                        <th>Tebu</td>
-                        <th>Totalizer Pemurnian</td>
-                        <th>Totalizer Gilingan</td>
-                        <th>Totalizer Decanter 1<sup>st</sup></td>
-                        <th>Totalizer Decanter 2<sup>nd</sup></td>
-                        <th>Flow NM Pemurnian</td>
-                        <th>Flow NM Gilingan</td>
-                        <th>Flow Decanter 1<sup>st</sup></td>
-                        <th>Flow Decanter 2<sup>nd</sup></td>
-                        <th>NM % Tebu Pemurnian</td>
-                        <th>NM % Tebu Gilingan</td>
-                        <th>SFC</td>
-                        <!-- <th>User</td> -->
-                        <th>Action</td>
-                    </tr>
-                </thead>
-            </table>
-            </div>
-
         </div>
+
+        <!-- ================= TABLE (COL 8) ================= -->
+        <div class="col-md-9">
+            <div class="card shadow mb-4">
+                <div class="card-header py-2">
+                    <strong>Data Flow</strong>
+                </div>
+                <div class="card-body">
+
+                    <div class="table-responsive">
+                        <table id="balanceTable" class="table table-bordered table-striped" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Timestamp</th>
+                                    <th>Tebu</th>
+                                    <th>Totalizer Pemurnian</th>
+                                    <th>Totalizer Gilingan</th>
+                                    <th>Totalizer Decanter 1<sup>st</sup></th>
+                                    <th>Totalizer Decanter 2<sup>nd</sup></th>
+                                    <th>Flow NM Pemurnian</th>
+                                    <th>Flow NM Gilingan</th>
+                                    <th>Flow Decanter 1<sup>st</sup></th>
+                                    <th>Flow Decanter 2<sup>nd</sup></th>
+                                    <th>NM % Tebu Pemurnian</th>
+                                    <th>NM % Tebu Gilingan</th>
+                                    <th>SFC</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -159,14 +126,14 @@ include('header.php');
 
 <script>
 $('#balanceTable').DataTable({
-    processing:true,
-    serverSide:true,
-    ajax:{
-        url:'balance_fetch.php',
-        type:'POST'
+    processing: true,
+    serverSide: true,
+    ajax: {
+        url: 'balance_fetch.php',
+        type: 'POST'
     },
-    order:[[0,'desc']],
-    columns:[
+    order: [[0, 'desc']],
+    columns: [
         {data:'id'},
         {data:'created_at'},
         {data:'tebu'},
