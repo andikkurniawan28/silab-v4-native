@@ -24,6 +24,13 @@ $data = $result->fetch_assoc();
         <input type="hidden" name="id" value="<?= $data['id'] ?>">
 
         <div class="form-group">
+            <label>Timestamp</label>
+            <input type="text" id="created_at" name="created_at"
+                   class="form-control"
+                   value="<?= $data['created_at'] ?>" required>
+        </div>
+
+        <div class="form-group">
             <label>Value</label>
             <input type="number" step="0.01" id="value" name="value"
                    class="form-control"

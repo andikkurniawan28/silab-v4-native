@@ -4,6 +4,7 @@ include('session_manager.php');
 $id    = intval($_POST['id']);
 $bruto = floatval($_POST['bruto']);
 $netto = floatval($_POST['netto']);
+$created_at = $_POST['created_at'];
 
 // Hitung ulang tarra (WAJIB)
 $tarra = $bruto - $netto;
@@ -21,10 +22,10 @@ if ($tarra < 0) {
 
 $stmt = $conn->prepare("
     UPDATE mollases
-    SET bruto = ?, tarra = ?, netto = ?
+    SET bruto = ?, tarra = ?, netto = ?, created_at = ?
     WHERE id = ?
 ");
-$stmt->bind_param("dddi", $bruto, $tarra, $netto, $id);
+$stmt->bind_param("dddsi", $bruto, $tarra, $netto, $created_at, $id);
 $stmt->execute();
 
 $_SESSION['flash'] = [

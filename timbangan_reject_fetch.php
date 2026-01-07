@@ -93,9 +93,9 @@ while ($row = $query->fetch_assoc()) {
         'netto' => $row['netto'],
         'created_at' => $row['created_at'],
         'action' => '
-            <a href="timbangan_rs_out_edit.php?id='.$row['id'].'"
+            <a href="timbangan_reject_edit.php?id='.$row['id'].'"
                class="btn btn-warning btn-sm">Edit</a>
-            <a href="timbangan_rs_out_delete.php?id='.$row['id'].'"
+            <a href="timbangan_reject_delete.php?id='.$row['id'].'"
                class="btn btn-danger btn-sm"
                onclick="return confirm(\'Hapus data ini?\')">Hapus</a>
         '

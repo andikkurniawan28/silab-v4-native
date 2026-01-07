@@ -4,6 +4,8 @@ include('session_manager2.php');
 $id    = intval($_POST['id']);
 $bruto = floatval($_POST['bruto']);
 $netto = floatval($_POST['netto']);
+$created_at = $_POST['created_at'];
+$line = "rs_out";
 
 // Hitung ulang tarra (WAJIB)
 $tarra = $bruto - $netto;
@@ -21,10 +23,10 @@ if ($tarra < 0) {
 
 $stmt = $conn->prepare("
     UPDATE in_process_weighings
-    SET bruto = ?, tarra = ?, netto = ?
+    SET bruto = ?, tarra = ?, netto = ?, created_at = ?, line = ? 
     WHERE id = ?
 ");
-$stmt->bind_param("dddi", $bruto, $tarra, $netto, $id);
+$stmt->bind_param("dddssi", $bruto, $tarra, $netto, $created_at, $line, $id);
 $stmt->execute();
 
 $_SESSION['flash'] = [

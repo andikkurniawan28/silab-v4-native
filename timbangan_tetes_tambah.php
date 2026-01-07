@@ -5,6 +5,13 @@
 
     <form method="POST" action="timbangan_tetes_store.php">
         <div class="form-group">
+            <label>Timestamp</label>
+            <input type="text" id="created_at" name="created_at"
+                    value="<?= date('Y-m-d H:i'); ?>"
+                    class="form-control" required>
+        </div>
+
+        <div class="form-group">
             <label>Bruto</label>
             <input type="number" step="0.01" id="bruto" name="bruto"
                    class="form-control" required>

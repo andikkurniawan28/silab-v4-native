@@ -3,6 +3,7 @@ include('session_manager2.php');
 
 $id    = intval($_POST['id']);
 $value = floatval($_POST['value']);
+$created_at = $_POST['created_at'];
 
 // Validasi
 if ($value < 0) {
@@ -17,10 +18,10 @@ if ($value < 0) {
 
 $stmt = $conn->prepare("
     UPDATE weighing_test
-    SET value = ? 
+    SET value = ?, created_at = ? 
     WHERE id = ?
 ");
-$stmt->bind_param("di", $value, $id);
+$stmt->bind_param("dsi", $value, $created_at, $id);
 $stmt->execute();
 
 $_SESSION['flash'] = [

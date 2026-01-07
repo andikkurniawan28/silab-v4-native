@@ -3,6 +3,7 @@ include('session_manager2.php');
 
 // Ambil data dari form
 $value = floatval($_POST['value']);
+$created_at = $_POST['created_at'];
 
 // Validasi sederhana
 if ($value < 0) {
@@ -17,11 +18,11 @@ if ($value < 0) {
 
 // Simpan ke database
 $stmt = $conn->prepare("
-    INSERT INTO weighing_test (value)
-    VALUES (?)
+    INSERT INTO weighing_test (value, created_at)
+    VALUES (?, ?)
 ");
 
-$stmt->bind_param("d", $value);
+$stmt->bind_param("ds", $value, $created_at);
 $stmt->execute();
 
 // Flash message
