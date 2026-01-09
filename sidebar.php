@@ -66,6 +66,7 @@ if ($result) {
             </div>
         </div>
     </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInputDataOffFarm"
             aria-expanded="true" aria-controls="collapseInputDataOffFarm">
@@ -92,9 +93,33 @@ if ($result) {
                 <a class="collapse-item" href="timbangan_rs_in_index.php">RS IN per Charge</a>
                 <a class="collapse-item" href="timbangan_rs_out_index.php">RS OUT per Charge</a>
                 <a class="collapse-item" href="timbangan_reject_index.php">Reject per Charge</a>
+                <a class="collapse-item" href="product50_index.php">Produk 50Kg</a>
+                <a class="collapse-item" href="uji_karung_index.php">Uji Karung</a>
             </div>
         </div>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInputDataOnFarm"
+            aria-expanded="true" aria-controls="collapseInputDataOnFarm">
+            <i class="fas fa-fw fa-edit"></i>
+            <span>Input Data On Farm</span>
+        </a>
+        <div id="collapseInputDataOnFarm" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu :</h6>
+                <a class="collapse-item" href="antrian_gelas_core_ek_index.php">Antrian Gelas Core EK</a>
+                <a class="collapse-item" href="antrian_gelas_ari_ek_index.php">Antrian Gelas ARI</a>
+                <a class="collapse-item" href="ari1_index.php">ARI 1</a>
+                <a class="collapse-item" href="ari2_index.php">ARI 2</a>
+                <a class="collapse-item" href="ari1_belum_teranalisa.php">ARI 1 Belum Teranalisa</a>
+                <a class="collapse-item" href="ari2_belum_teranalisa.php">ARI 2 Belum Teranalisa</a>
+                <a class="collapse-item" href="master_on_farm_index.php">Master On Farm</a>
+            </div>
+        </div>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
             aria-expanded="true" aria-controls="collapseMaster">
