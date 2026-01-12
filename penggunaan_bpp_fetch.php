@@ -8,22 +8,21 @@ $order  = $_POST['order'][0] ?? [];
 $search = $_POST['search']['value'] ?? '';
 
 /* =========================================
-   AMBIL KSPOT (mapping kolom -> nama)
+   AMBIL CHEMICAL (mapping kolom -> nama)
 ========================================= */
 $chemicalQuery = $conn->query("SELECT id, name FROM chemicals ORDER BY id");
 $chemicals = [];
 $selectColumns = ['k.id', 'k.created_at'];
 
-while ($k = $chemicalQuery->fetch_assoc()) {
-    $col = 'p' . $k['id'];
-    $chemicals[$col] = $k['name'];
+while ($c = $chemicalQuery->fetch_assoc()) {
+    $col = 'p' . $c['id'];
+    $chemicals[$col] = $c['name'];
     $selectColumns[] = "k.`$col`";
 }
 
 /* =========================================
    ORDERING
 ========================================= */
-$columns = ['id', 'created_at', 'hasil'];
 $orderColumnIndex = intval($order['column'] ?? 1);
 $orderDir = ($order['dir'] ?? 'desc') === 'asc' ? 'ASC' : 'DESC';
 
@@ -33,11 +32,24 @@ if ($orderColumnIndex === 0) {
 }
 
 /* =========================================
+   BASE TABLE — 1000 DATA TERAKHIR
+========================================= */
+$baseTable = "
+    (
+        SELECT *
+        FROM penggunaan_bpp
+        ORDER BY id DESC
+        LIMIT 1000
+    ) AS k
+";
+
+/* =========================================
    SEARCH
 ========================================= */
 $where = '';
 if ($search !== '') {
     $searchEsc = $conn->real_escape_string($search);
+
     $whereParts = [
         "k.id LIKE '%$searchEsc%'",
         "DATE_FORMAT(k.created_at, '%d-%m-%Y %H:%i:%s') LIKE '%$searchEsc%'"
@@ -51,18 +63,27 @@ if ($search !== '') {
 }
 
 /* =========================================
-   TOTAL DATA
+   TOTAL DATA (maks 1000)
 ========================================= */
-$totalData = $conn->query("SELECT COUNT(*) FROM penggunaan_bpp")->fetch_row()[0];
-$totalFiltered = $conn->query("SELECT COUNT(*) FROM penggunaan_bpp k $where")->fetch_row()[0];
+$totalData = $conn->query("
+    SELECT COUNT(*)
+    FROM $baseTable
+")->fetch_row()[0];
+
+$totalFiltered = $conn->query("
+    SELECT COUNT(*)
+    FROM $baseTable
+    $where
+")->fetch_row()[0];
 
 /* =========================================
    QUERY DATA
 ========================================= */
 $selectSql = implode(', ', $selectColumns);
+
 $sql = "
     SELECT $selectSql
-    FROM penggunaan_bpp k
+    FROM $baseTable
     $where
     ORDER BY $orderColumn $orderDir
     LIMIT $start, $limit
@@ -98,10 +119,13 @@ while ($row = $query->fetch_assoc()) {
         'created_at' => date('d-m-Y H:i:s', strtotime($row['created_at'])),
         'hasil' => $hasilHtml,
         'action' => '
-            <a href="penggunaan_bpp_edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-sm">Edit</a>
-            <a href="penggunaan_bpp_delete.php?id=' . $row['id'] . '"
+            <a href="penggunaan_bpp_edit.php?id='.$row['id'].'"
+               class="btn btn-warning btn-sm">Edit</a>
+            <a href="penggunaan_bpp_delete.php?id='.$row['id'].'"
                class="btn btn-danger btn-sm"
-               onclick="return confirm(\'Hapus data ini?\')">Hapus</a>
+               onclick="return confirm(\'Hapus data ini?\')">
+               Hapus
+            </a>
         '
     ];
 }
@@ -111,7 +135,7 @@ while ($row = $query->fetch_assoc()) {
 ========================================= */
 echo json_encode([
     'draw' => $draw,
-    'recordsTotal' => intval($totalData),
-    'recordsFiltered' => intval($totalFiltered),
+    'recordsTotal' => $totalData,
+    'recordsFiltered' => $totalFiltered,
     'data' => $data
 ]);

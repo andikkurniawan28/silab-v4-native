@@ -8,10 +8,10 @@ $password = "andik";
 $database = "qc";
 
 // Membuat koneksi
-$conn = mysqli_connect($host, $username, $password, $database);
+$conn2 = mysqli_connect($host, $username, $password, $database);
 
 // Cek koneksi
-if (!$conn) {
+if (!$conn2) {
     die("Koneksi database gagal: " . mysqli_connect_error());
 }
 

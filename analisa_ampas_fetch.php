@@ -3,21 +3,34 @@ include('db.php');
 
 $materials = "8,9,10,11,12,18,19,20,21,22,23,330,332,338,425";
 
-$limit  = intval($_POST['length']);
-$start  = intval($_POST['start']);
+$limit  = intval($_POST['length'] ?? 10);
+$start  = intval($_POST['start'] ?? 0);
+$draw   = intval($_POST['draw'] ?? 1);
 
-/**
- * TOTAL DATA
- */
+/* ===============================
+   BASE TABLE — LIMIT 1000 TERAKHIR
+   =============================== */
+$baseTable = "
+    (
+        SELECT *
+        FROM analisa_off_farm_new
+        WHERE material_id IN ($materials)
+        ORDER BY id DESC
+        LIMIT 1000
+    ) AS a
+";
+
+/* ===============================
+   TOTAL DATA (maks 1000)
+   =============================== */
 $totalData = $conn->query("
     SELECT COUNT(*)
-    FROM analisa_off_farm_new
-    WHERE material_id IN ($materials)
+    FROM $baseTable
 ")->fetch_row()[0];
 
-/**
- * DATA
- */
+/* ===============================
+   DATA
+   =============================== */
 $sql = "
     SELECT 
         a.id,
@@ -27,11 +40,10 @@ $sql = "
         a.`%Air`,
         a.`%Zk`,
         m.name AS material
-    FROM analisa_off_farm_new a
+    FROM $baseTable
     JOIN materials m ON m.id = a.material_id
-    WHERE a.material_id IN ($materials)
     ORDER BY a.id DESC
-    LIMIT $start,$limit
+    LIMIT $start, $limit
 ";
 
 $q = $conn->query($sql);
@@ -57,7 +69,7 @@ while ($r = $q->fetch_assoc()) {
 }
 
 echo json_encode([
-    "draw"            => intval($_POST['draw']),
+    "draw"            => $draw,
     "recordsTotal"    => $totalData,
     "recordsFiltered" => $totalData,
     "data"            => $data

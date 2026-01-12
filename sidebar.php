@@ -55,13 +55,13 @@ if ($result) {
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu :</h6>
-
                 <?php foreach ($stations as $station): ?>
                     <a class="collapse-item"
                         href="cetak_barcode.php?station_id=<?= $station['id']; ?>">
                         <?= htmlspecialchars($station['name']); ?>
                     </a>
                 <?php endforeach; ?>
+                <a class="collapse-item" href="cetak_barcode_wilayah_index.php">Analisa Pendahuluan</a>
 
             </div>
         </div>
@@ -77,6 +77,7 @@ if ($result) {
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu :</h6>
+                <a class="collapse-item" href="barcode_index.php">Barcode</a>
                 <a class="collapse-item" href="analisa_index.php">Analisa</a>
                 <a class="collapse-item" href="verifikasi_mandor_index.php">Verifikasi Mandor</a>
                 <a class="collapse-item" href="analisa_ampas_index.php">Analisa Ampas</a>
@@ -121,6 +122,24 @@ if ($result) {
     </li>
 
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLaporan"
+            aria-expanded="true" aria-controls="collapseLaporan">
+            <i class="fas fa-fw fa-file-signature"></i>
+            <span>Laporan</span>
+        </a>
+        <div id="collapseLaporan" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Menu :</h6>
+                <a class="collapse-item" href="laporan_off_farm_index.php">Laporan Off Farm</a>
+                <a class="collapse-item" href="laporan_core_sample_index.php">Laporan Core Sample</a>
+                <a class="collapse-item" href="laporan_ari_index.php">Laporan ARI</a>
+                <a class="collapse-item" href="laporan_mbs_index.php">Laporan MBS</a>
+            </div>
+        </div>
+    </li>
+
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseMaster"
             aria-expanded="true" aria-controls="collapseMaster">
             <i class="fas fa-fw fa-database"></i>
@@ -140,7 +159,7 @@ if ($result) {
                 <a class="collapse-item" href="kspot_index.php">Titik Keliling</a>
                 <a class="collapse-item" href="tspot_index.php">Titik Taksasi</a>
                 <a class="collapse-item" href="chemical_index.php">Bahan Pembantu Proses</a>
-                <a class="collapse-item" href="barcode_index.php">Barcode</a>
+                <a class="collapse-item" href="wilayah_index.php">Wilayah</a>
             </div>
         </div>
     </li>

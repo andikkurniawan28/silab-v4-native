@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Timestamp</th>
                     <th>Material</th>
                     <th>Hasil</th>
                     <th>Status</th>
@@ -35,6 +36,7 @@ $(function () {
         },
         columns: [
             { data: 'id' },
+            { data: 'timestamp' },
             { data: 'material' },
             { data: 'hasil_analisa', orderable:false, searchable:false },
             { data: 'status' },

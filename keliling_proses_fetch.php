@@ -23,7 +23,6 @@ while ($k = $kspotQuery->fetch_assoc()) {
 /* =========================================
    ORDERING
 ========================================= */
-$columns = ['id', 'created_at', 'hasil'];
 $orderColumnIndex = intval($order['column'] ?? 1);
 $orderDir = ($order['dir'] ?? 'desc') === 'asc' ? 'ASC' : 'DESC';
 
@@ -33,11 +32,24 @@ if ($orderColumnIndex === 0) {
 }
 
 /* =========================================
+   BASE TABLE — 1000 DATA TERAKHIR
+========================================= */
+$baseTable = "
+    (
+        SELECT *
+        FROM keliling_proses
+        ORDER BY id DESC
+        LIMIT 1000
+    ) AS k
+";
+
+/* =========================================
    SEARCH
 ========================================= */
 $where = '';
 if ($search !== '') {
     $searchEsc = $conn->real_escape_string($search);
+
     $whereParts = [
         "k.id LIKE '%$searchEsc%'",
         "DATE_FORMAT(k.created_at, '%d-%m-%Y %H:%i:%s') LIKE '%$searchEsc%'"
@@ -51,18 +63,27 @@ if ($search !== '') {
 }
 
 /* =========================================
-   TOTAL DATA
+   TOTAL DATA (maks 1000)
 ========================================= */
-$totalData = $conn->query("SELECT COUNT(*) FROM keliling_proses")->fetch_row()[0];
-$totalFiltered = $conn->query("SELECT COUNT(*) FROM keliling_proses k $where")->fetch_row()[0];
+$totalData = $conn->query("
+    SELECT COUNT(*)
+    FROM $baseTable
+")->fetch_row()[0];
+
+$totalFiltered = $conn->query("
+    SELECT COUNT(*)
+    FROM $baseTable
+    $where
+")->fetch_row()[0];
 
 /* =========================================
    QUERY DATA
 ========================================= */
 $selectSql = implode(', ', $selectColumns);
+
 $sql = "
     SELECT $selectSql
-    FROM keliling_proses k
+    FROM $baseTable
     $where
     ORDER BY $orderColumn $orderDir
     LIMIT $start, $limit
@@ -98,10 +119,13 @@ while ($row = $query->fetch_assoc()) {
         'created_at' => date('d-m-Y H:i:s', strtotime($row['created_at'])),
         'hasil' => $hasilHtml,
         'action' => '
-            <a href="keliling_proses_edit.php?id=' . $row['id'] . '" class="btn btn-warning btn-sm">Edit</a>
-            <a href="keliling_proses_delete.php?id=' . $row['id'] . '"
+            <a href="keliling_proses_edit.php?id='.$row['id'].'" 
+               class="btn btn-warning btn-sm">Edit</a>
+            <a href="keliling_proses_delete.php?id='.$row['id'].'"
                class="btn btn-danger btn-sm"
-               onclick="return confirm(\'Hapus data ini?\')">Hapus</a>
+               onclick="return confirm(\'Hapus data ini?\')">
+               Hapus
+            </a>
         '
     ];
 }
@@ -111,7 +135,7 @@ while ($row = $query->fetch_assoc()) {
 ========================================= */
 echo json_encode([
     'draw' => $draw,
-    'recordsTotal' => intval($totalData),
-    'recordsFiltered' => intval($totalFiltered),
+    'recordsTotal' => $totalData,
+    'recordsFiltered' => $totalFiltered,
     'data' => $data
 ]);

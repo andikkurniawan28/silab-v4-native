@@ -100,12 +100,12 @@
                                     <th>Tebu</th>
                                     <th>Totalizer Pemurnian</th>
                                     <th>Totalizer Gilingan</th>
-                                    <th>Totalizer Decanter 1<sup>st</sup></th>
-                                    <th>Totalizer Decanter 2<sup>nd</sup></th>
+                                    <th>Totalizer D1</th>
+                                    <th>Totalizer D2</th>
                                     <th>Flow NM Pemurnian</th>
                                     <th>Flow NM Gilingan</th>
-                                    <th>Flow Decanter 1<sup>st</sup></th>
-                                    <th>Flow Decanter 2<sup>nd</sup></th>
+                                    <th>Flow D1</th>
+                                    <th>Flow D2</th>
                                     <th>NM % Tebu Pemurnian</th>
                                     <th>NM % Tebu Gilingan</th>
                                     <th>SFC</th>
