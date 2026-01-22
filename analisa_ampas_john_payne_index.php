@@ -11,7 +11,7 @@
 
                 <div class="form-group">
                     <label>Barcode</label>
-                    <input type="number" name="sample_id" id="sample_id" class="form-control" required>
+                    <input type="number" name="sample_id" id="sample_id" class="form-control" autofocus required>
                 </div>
 
                 <div class="form-group">

@@ -77,7 +77,9 @@ $materialsQ = $conn->query("
                 <div class="card shadow h-100">
 
                     <div class="card-header bg-dark text-white font-weight-bold">
-                        <?= htmlspecialchars($material['name']); ?>
+                        <a class="text-white font-weight-bold" href="hasil_analisa_per_material.php?id=<?= $material['id'] ?>">
+                        <?= strtoupper(htmlspecialchars($material['name'])); ?>
+                        </a>
                     </div>
 
                     <div class="card-body p-0">
@@ -102,7 +104,7 @@ $materialsQ = $conn->query("
                                                 </td>
                                                 <?php foreach ($indicators as $ind): ?>
                                                     <td>
-                                                        <?= $row[$ind['name']] ?? '-'; ?>
+                                                        <?= $row[str_replace(' ', '_', $ind['name'])] ?? '-'; ?>
                                                     </td>
                                                 <?php endforeach; ?>
                                             </tr>

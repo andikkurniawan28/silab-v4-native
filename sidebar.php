@@ -110,6 +110,7 @@ if ($result) {
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu :</h6>
+                <a class="collapse-item" href="analisa_pendahuluan_index.php">Analisa Pendahuluan</a>
                 <a class="collapse-item" href="antrian_gelas_core_ek_index.php">Antrian Gelas Core EK</a>
                 <a class="collapse-item" href="antrian_gelas_ari_ek_index.php">Antrian Gelas ARI</a>
                 <a class="collapse-item" href="ari1_index.php">ARI 1</a>
@@ -135,6 +136,8 @@ if ($result) {
                 <a class="collapse-item" href="laporan_core_sample_index.php">Laporan Core Sample</a>
                 <a class="collapse-item" href="laporan_ari_index.php">Laporan ARI</a>
                 <a class="collapse-item" href="laporan_mbs_index.php">Laporan MBS</a>
+                <a class="collapse-item" href="coa_tetes_index.php">COA Tetes</a>
+                <a class="collapse-item" href="coa_kapur_index.php">COA Kapur</a>
             </div>
         </div>
     </li>
