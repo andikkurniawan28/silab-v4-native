@@ -53,7 +53,7 @@ if ($row = $res->fetch_assoc()) {
 */
 $by_number   = substr($last_code, strlen($code));
 $new_number  = (int)$by_number + 1;
-$new_barcode = $code . $new_number;
+$new_barcode = $code . '-' . $new_number;
 
 /* ================= INSERT ================= */
 $insert = $conn->prepare("
