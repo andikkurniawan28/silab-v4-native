@@ -95,6 +95,7 @@ if ($result) {
                 <a class="collapse-item" href="timbangan_rs_out_index.php">RS OUT per Charge</a>
                 <a class="collapse-item" href="timbangan_reject_index.php">Reject per Charge</a>
                 <a class="collapse-item" href="product50_index.php">Produk 50Kg</a>
+                <a class="collapse-item" href="retail_index.php">Produksi Retail</a>
                 <a class="collapse-item" href="uji_karung_index.php">Uji Karung</a>
             </div>
         </div>

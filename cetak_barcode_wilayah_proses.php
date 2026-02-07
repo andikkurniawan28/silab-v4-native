@@ -57,10 +57,10 @@ $new_barcode = $code . '-' . $new_number;
 
 /* ================= INSERT ================= */
 $insert = $conn->prepare("
-    INSERT INTO analisa_pendahuluans (code, kud_id)
-    VALUES (?, ?)
+    INSERT INTO analisa_pendahuluans (code, kud_id, wilayah)
+    VALUES (?, ?, ?)
 ");
-$insert->bind_param("si", $new_barcode, $kud_id);
+$insert->bind_param("sis", $new_barcode, $kud_id, $kud_name);
 $insert->execute();
 
 /* ================= AMBIL DATA YANG BARU DIINSERT ================= */
@@ -69,9 +69,8 @@ $last_id = $conn->insert_id;
 $q = $conn->prepare("
     SELECT 
         ap.*,
-        k.name AS kud_name
+        ap.wilayah AS kud_name
     FROM analisa_pendahuluans ap
-    LEFT JOIN kuds k ON k.id = ap.kud_id
     WHERE ap.id = ?
     LIMIT 1
 ");

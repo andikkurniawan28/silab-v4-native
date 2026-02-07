@@ -9,6 +9,7 @@
             <tr>
                 <th>ID</th>
                 <th>Kode</th>
+                <th>Wilayah</th>
                 <th>Timestamp</th>
                 <th>BA</th>
                 <th>PA</th>
@@ -41,6 +42,7 @@ $(function () {
         columns: [
             { data: 'id' },
             { data: 'code' },
+            { data: 'wilayah' },
             { data: 'timestamp' },
             { data: 'brix_atas' },
             { data: 'pol_atas' },

@@ -52,6 +52,7 @@ while ($row = $query->fetch_assoc()) {
     $data[] = [
         'id' => $row['id'],
         'code' => $row['code'],
+        'wilayah' => $row['wilayah'],
         'brix_atas' => $row['brix_atas'],
         'pol_atas' => $row['pol_atas'],
         'rendemen_atas' => $row['rendemen_atas'],

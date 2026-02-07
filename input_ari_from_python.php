@@ -207,8 +207,8 @@ if (
         
         if (!$rfid_exists) {
             $insert_sql = "
-                INSERT INTO kartu_aris (rfid, created_at, updated_at)
-                VALUES (?, NOW(), NOW())
+                INSERT INTO kartu_aris (rfid, jenis, created_at, updated_at)
+                VALUES (?, ?, NOW(), NOW())
             ";
             
             $insert_stmt = mysqli_prepare($conn, $insert_sql);
@@ -217,7 +217,7 @@ if (
                 throw new Exception('Gagal mempersiapkan query insert');
             }
             
-            mysqli_stmt_bind_param($insert_stmt, "s", $kartu_ari_value);
+            mysqli_stmt_bind_param($insert_stmt, "ss", $kartu_ari_value, 'K');
             
             if (!mysqli_stmt_execute($insert_stmt)) {
                 throw new Exception('Gagal insert ke tabel kartu_aris');
