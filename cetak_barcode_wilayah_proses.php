@@ -45,15 +45,20 @@ if ($row = $res->fetch_assoc()) {
 }
 
 /* ================= GENERATE BARCODE BARU ================= */
-/*
-  Contoh:
-  code = A
-  last_code = A12
-  substr dari strlen(code) => 12
-*/
-$by_number   = substr($last_code, strlen($code));
-$new_number  = (int)$by_number + 1;
-$new_barcode = $code . '-' . $new_number;
+// Contoh: 
+// code = A
+// last_code = A-12  (dengan pemisah '-')
+$last_parts = explode('-', $last_code);
+
+// Ambil bagian angka terakhir
+if (count($last_parts) > 1) {
+    $last_number = end($last_parts);
+    $new_number = (int)$last_number + 1;
+    $new_barcode = $code . '-' . $new_number;
+} else {
+    // Jika tidak ada pemisah, mulai dari 1
+    $new_barcode = $code . '-1';
+}
 
 /* ================= INSERT ================= */
 $insert = $conn->prepare("

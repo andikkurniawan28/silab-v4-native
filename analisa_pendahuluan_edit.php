@@ -40,132 +40,190 @@ $analisa = $q->fetch_assoc();
         </div>
 
         <div class="form-group">
-            <label>Brix</label>
+            <label>Berat Tebu Atas</label>
+            <input type="number" step="any" 
+                   name="berat_tebu_atas"
+                   id="berat_tebu_atas"
+                   class="form-control"
+                   value="<?= $analisa['berat_tebu_atas']; ?>"
+                   >
+        </div>
+
+        <div class="form-group">
+            <label>Berat Nira Atas</label>
+            <input type="number" step="any" 
+                   name="berat_nira_atas"
+                   id="berat_nira_atas"
+                   class="form-control"
+                   value="<?= $analisa['berat_nira_atas']; ?>"
+                   >
+        </div>
+
+        <div class="form-group">
+            <label>Brix Atas</label>
             <input type="number" step="any" 
                    name="brix_atas"
                    id="brix_atas"
                    class="form-control"
                    value="<?= $analisa['brix_atas']; ?>"
                    onchange="hitungRendemen()"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>Pol</label>
+            <label>Pol Atas</label>
             <input type="number" step="any" 
                    name="pol_atas"
                    id="pol_atas"
                    class="form-control"
                    value="<?= $analisa['pol_atas']; ?>"
                    onchange="hitungRendemen()"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>Z</label>
+            <label>Z Atas</label>
             <input type="number" step="any" 
                    name="pol_baca_atas"
                    id="pol_baca_atas"
                    class="form-control"
                    value="<?= $analisa['pol_baca_atas']; ?>"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>R</label>
+            <label>R Atas</label>
             <input type="number" step="any" 
                    name="rendemen_atas"
                    id="rendemen_atas"
                    class="form-control"
                    value="<?= $analisa['rendemen_atas']; ?>"
                    onchange="hitungPol()"
-                   required>
+                   >
+        </div><div class="form-group">
+            <label>Berat Tebu tengah</label>
+            <input type="number" step="any" 
+                   name="berat_tebu_tengah"
+                   id="berat_tebu_tengah"
+                   class="form-control"
+                   value="<?= $analisa['berat_tebu_tengah']; ?>"
+                   >
         </div>
 
         <div class="form-group">
-            <label>Brix</label>
+            <label>Berat Nira tengah</label>
+            <input type="number" step="any" 
+                   name="berat_nira_tengah"
+                   id="berat_nira_tengah"
+                   class="form-control"
+                   value="<?= $analisa['berat_nira_tengah']; ?>"
+                   >
+        </div>
+
+        <div class="form-group">
+            <label>Brix Tengah</label>
             <input type="number" step="any" 
                    name="brix_tengah"
                    id="brix_tengah"
                    class="form-control"
                    value="<?= $analisa['brix_tengah']; ?>"
                    onchange="hitungRendemen()"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>Pol</label>
+            <label>Pol Tengah</label>
             <input type="number" step="any" 
                    name="pol_tengah"
                    id="pol_tengah"
                    class="form-control"
                    value="<?= $analisa['pol_tengah']; ?>"
                    onchange="hitungRendemen()"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>Z</label>
+            <label>Z Tengah</label>
             <input type="number" step="any" 
                    name="pol_baca_tengah"
                    id="pol_baca_tengah"
                    class="form-control"
                    value="<?= $analisa['pol_baca_tengah']; ?>"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>R</label>
+            <label>R Tengah</label>
             <input type="number" step="any" 
                    name="rendemen_tengah"
                    id="rendemen_tengah"
                    class="form-control"
                    value="<?= $analisa['rendemen_tengah']; ?>"
                    onchange="hitungPol()"
-                   required>
+                   >
+        </div>
+        
+        <div class="form-group">
+            <label>Berat Tebu bawah</label>
+            <input type="number" step="any" 
+                   name="berat_tebu_bawah"
+                   id="berat_tebu_bawah"
+                   class="form-control"
+                   value="<?= $analisa['berat_tebu_bawah']; ?>"
+                   >
         </div>
 
         <div class="form-group">
-            <label>Brix</label>
+            <label>Berat Nira bawah</label>
+            <input type="number" step="any" 
+                   name="berat_nira_bawah"
+                   id="berat_nira_bawah"
+                   class="form-control"
+                   value="<?= $analisa['berat_nira_bawah']; ?>"
+                   >
+        </div>
+
+        <div class="form-group">
+            <label>Brix Bawah</label>
             <input type="number" step="any" 
                    name="brix_bawah"
                    id="brix_bawah"
                    class="form-control"
                    value="<?= $analisa['brix_bawah']; ?>"
                    onchange="hitungRendemen()"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>Pol</label>
+            <label>Pol Bawah</label>
             <input type="number" step="any" 
                    name="pol_bawah"
                    id="pol_bawah"
                    class="form-control"
                    value="<?= $analisa['pol_bawah']; ?>"
                    onchange="hitungRendemen()"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>Z</label>
+            <label>Z Bawah</label>
             <input type="number" step="any" 
                    name="pol_baca_bawah"
                    id="pol_baca_bawah"
                    class="form-control"
                    value="<?= $analisa['pol_baca_bawah']; ?>"
-                   required>
+                   >
         </div>
 
         <div class="form-group">
-            <label>R</label>
+            <label>R Bawah</label>
             <input type="number" step="any" 
                    name="rendemen_bawah"
                    id="rendemen_bawah"
                    class="form-control"
                    value="<?= $analisa['rendemen_bawah']; ?>"
                    onchange="hitungPol()"
-                   required>
+                   >
         </div>
 
         <button class="btn btn-primary">Update</button>
@@ -182,19 +240,19 @@ $analisa = $q->fetch_assoc();
         pol = document.getElementById("pol_atas").value;
         brix = parseFloat(brix);
         pol = parseFloat(pol);
-        rendemen = (pol-(0.5*(brix-pol)))*0.7;
+        rendemen = (pol-(0.4*(brix-pol)))*0.5;
         document.getElementById("rendemen_atas").value = rendemen.toFixed(2);
         brix = document.getElementById("brix_tengah").value;
         pol = document.getElementById("pol_tengah").value;
         brix = parseFloat(brix);
         pol = parseFloat(pol);
-        rendemen = (pol-(0.5*(brix-pol)))*0.7;
+        rendemen = (pol-(0.4*(brix-pol)))*0.5;
         document.getElementById("rendemen_tengah").value = rendemen.toFixed(2);
         brix = document.getElementById("brix_bawah").value;
         pol = document.getElementById("pol_bawah").value;
         brix = parseFloat(brix);
         pol = parseFloat(pol);
-        rendemen = (pol-(0.5*(brix-pol)))*0.7;
+        rendemen = (pol-(0.4*(brix-pol)))*0.5;
         document.getElementById("rendemen_bawah").value = rendemen.toFixed(2);
     }
 
@@ -204,19 +262,19 @@ $analisa = $q->fetch_assoc();
         rendemen = document.getElementById("rendemen_atas").value;
         brix = parseFloat(brix);
         rendemen = parseFloat(rendemen);
-        pol = ((rendemen / 0.7) + (0.5 * brix)) / (1 + 0.5);
+        pol = ((rendemen / 0.5) + (0.4 * brix)) / (1 + 0.4);
         document.getElementById("pol_atas").value = pol.toFixed(2);
         brix = document.getElementById("brix_tengah").value;
         rendemen = document.getElementById("rendemen_tengah").value;
         brix = parseFloat(brix);
         rendemen = parseFloat(rendemen);
-        pol = ((rendemen / 0.7) + (0.5 * brix)) / (1 + 0.5);
+        pol = ((rendemen / 0.5) + (0.4 * brix)) / (1 + 0.4);
         document.getElementById("pol_tengah").value = pol.toFixed(2);
         brix = document.getElementById("brix_bawah").value;
         rendemen = document.getElementById("rendemen_bawah").value;
         brix = parseFloat(brix);
         rendemen = parseFloat(rendemen);
-        pol = ((rendemen / 0.7) + (0.5 * brix)) / (1 + 0.5);
+        pol = ((rendemen / 0.5) + (0.4 * brix)) / (1 + 0.4);
         document.getElementById("pol_bawah").value = pol.toFixed(2);
     }
 </script>

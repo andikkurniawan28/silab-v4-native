@@ -7,7 +7,7 @@ $kuds = [];
 $stmt = mysqli_prepare($conn, "
     SELECT id, name, code
     FROM kuds 
-    ORDER BY id ASC
+    ORDER BY id DESC
 ");
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);

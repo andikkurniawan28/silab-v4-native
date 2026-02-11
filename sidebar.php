@@ -134,6 +134,7 @@ if ($result) {
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Menu :</h6>
                 <a class="collapse-item" href="laporan_off_farm_index.php">Laporan Off Farm</a>
+                <a class="collapse-item" href="laporan_ap_index.php">Laporan Analisa Pendahuluan</a>
                 <a class="collapse-item" href="laporan_core_sample_index.php">Laporan Core Sample</a>
                 <a class="collapse-item" href="laporan_ari_index.php">Laporan ARI</a>
                 <a class="collapse-item" href="laporan_mbs_index.php">Laporan MBS</a>

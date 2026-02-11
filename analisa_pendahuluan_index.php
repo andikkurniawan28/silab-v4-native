@@ -11,15 +11,21 @@
                 <th>Kode</th>
                 <th>Wilayah</th>
                 <th>Timestamp</th>
-                <th>BA</th>
-                <th>PA</th>
-                <th>RA</th>
-                <th>BT</th>
-                <th>PT</th>
-                <th>RT</th>
-                <th>BB</th>
-                <th>PB</th>
-                <th>RB</th>
+                <th>Berat Tebu Atas</th>
+                <th>Berat Nira Atas</th>
+                <th>Brix Atas</th>
+                <th>Pol Atas</th>
+                <th>Rend Atas</th>
+                <th>Berat Tebu Tengah</th>
+                <th>Berat Nira Tengah</th>
+                <th>Brix Tengah</th>
+                <th>Pol Tengah</th>
+                <th>Rend Tengah</th>
+                <th>Berat Tebu Bawah</th>
+                <th>Berat Nira Bawah</th>
+                <th>Brix Bawah</th>
+                <th>Pol Bawah</th>
+                <th>Rend Bawah</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -44,12 +50,18 @@ $(function () {
             { data: 'code' },
             { data: 'wilayah' },
             { data: 'timestamp' },
+            { data: 'berat_tebu_atas' },
+            { data: 'berat_nira_atas' },
             { data: 'brix_atas' },
             { data: 'pol_atas' },
             { data: 'rendemen_atas' },
+            { data: 'berat_tebu_tengah' },
+            { data: 'berat_nira_tengah' },
             { data: 'brix_tengah' },
             { data: 'pol_tengah' },
             { data: 'rendemen_tengah' },
+            { data: 'berat_tebu_bawah' },
+            { data: 'berat_nira_bawah' },
             { data: 'brix_bawah' },
             { data: 'pol_bawah' },
             { data: 'rendemen_bawah' },
