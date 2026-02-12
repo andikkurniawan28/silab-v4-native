@@ -1,5 +1,26 @@
-<?php
-include('header.php');
+
+<?php 
+
+include('session_manager.php'); 
+checkRoleAccess([
+    'Superadmin', 
+    // 'Kabag', 
+    // 'Kasie', 
+    // 'Kasubsie', 
+    // 'Admin QC', 
+    // 'Koordinator QC', 
+    // 'Mandor Off Farm', 
+    // 'Analis Off Farm', 
+    // 'Mandor On Farm', 
+    // 'Analis On Farm', 
+    // 'Operator Pabrikasi',
+    // 'Staff Teknik',
+    // 'Staff Tanaman',
+    // 'Staff TUK',
+    // 'Direksi',
+    // 'Tamu',
+    ]);
+include('header_rev.php');
 
 /**
  * Ambil semua feature
@@ -17,13 +38,12 @@ $features = $conn->query("
     <form method="POST" action="role_store.php">
         <div class="form-group">
             <label>Nama Role</label>
-            <input type="text" name="name" class="form-control" required>
+            <input type="text" name="name" class="form-control" autofocus required>
         </div>
 
-        <hr>
+        <!-- <hr>
         <h5 class="mb-2">Hak Akses Fitur</h5>
-
-        <!-- CHECK ALL -->
+        
         <div class="form-check mb-3">
             <input type="checkbox"
                    class="form-check-input"
@@ -50,9 +70,9 @@ $features = $conn->query("
                     </div>
                 </div>
             <?php endwhile; ?>
-        </div>
+        </div> 
 
-        <hr>
+        <hr> -->
 
         <button class="btn btn-primary">Simpan</button>
         <a href="role_index.php" class="btn btn-secondary">Batal</a>

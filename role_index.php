@@ -1,4 +1,28 @@
-<?php include('header.php'); ?>
+
+<?php 
+
+include('session_manager.php'); 
+checkRoleAccess([
+    'Superadmin', 
+    // 'Kabag', 
+    // 'Kasie', 
+    // 'Kasubsie', 
+    // 'Admin QC', 
+    // 'Koordinator QC', 
+    // 'Mandor Off Farm', 
+    // 'Analis Off Farm', 
+    // 'Mandor On Farm', 
+    // 'Analis On Farm', 
+    // 'Operator Pabrikasi',
+    // 'Staff Teknik',
+    // 'Staff Tanaman',
+    // 'Staff TUK',
+    // 'Direksi',
+    // 'Tamu',
+    ]);
+include('header_rev.php');
+
+?>
 
 <div class="container-fluid">
     <h4 class="mb-3">Role</h4>
@@ -13,7 +37,7 @@
             <tr>
                 <th>ID</th>
                 <th>Nama Role</th>
-                <th>Fitur</th>
+                <!-- <th>Fitur</th> -->
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -35,7 +59,7 @@ $(function () {
         columns: [
             { data: 'id' },
             { data: 'name' },
-            { data: 'fitur' },
+            // { data: 'fitur' },
             { data: 'action', orderable:false }
         ]
     });

@@ -1,6 +1,26 @@
-<?php
-include('header.php');
-include('db.php');
+
+<?php 
+
+include('session_manager.php'); 
+checkRoleAccess([
+    'Superadmin', 
+    // 'Kabag', 
+    // 'Kasie', 
+    // 'Kasubsie', 
+    // 'Admin QC', 
+    // 'Koordinator QC', 
+    // 'Mandor Off Farm', 
+    // 'Analis Off Farm', 
+    // 'Mandor On Farm', 
+    // 'Analis On Farm', 
+    // 'Operator Pabrikasi',
+    // 'Staff Teknik',
+    // 'Staff Tanaman',
+    // 'Staff TUK',
+    // 'Direksi',
+    // 'Tamu',
+    ]);
+include('header_rev.php');
 
 $id = intval($_GET['id']);
 
@@ -54,10 +74,9 @@ while ($p = $res->fetch_assoc()) {
                    required>
         </div>
 
-        <hr>
+        <!-- <hr>
         <h5 class="mb-2">Hak Akses Fitur</h5>
 
-        <!-- CHECK ALL -->
         <div class="form-check mb-3">
             <input type="checkbox"
                    class="form-check-input"
@@ -87,7 +106,7 @@ while ($p = $res->fetch_assoc()) {
             <?php endwhile; ?>
         </div>
 
-        <hr>
+        <hr> -->
 
         <button class="btn btn-primary">Update</button>
         <a href="role_index.php" class="btn btn-secondary">Batal</a>

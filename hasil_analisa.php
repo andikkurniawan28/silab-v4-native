@@ -1,4 +1,27 @@
-<?php include('header.php'); ?>
+<?php 
+
+include('session_manager.php'); 
+checkRoleAccess([
+    'Superadmin', 
+    'Kabag', 
+    'Kasie', 
+    'Kasubsie', 
+    'Admin QC', 
+    'Koordinator QC', 
+    'Mandor Off Farm', 
+    'Analis Off Farm', 
+    // 'Mandor On Farm', 
+    // 'Analis On Farm', 
+    // 'Operator Pabrikasi',
+    // 'Staff Teknik',
+    // 'Staff Tanaman',
+    // 'Staff TUK',
+    // 'Direksi',
+    // 'Tamu',
+    ]);
+include('header_rev.php'); 
+
+?>
 
 <?php
 $station_id = $_GET['station_id'] ?? null;

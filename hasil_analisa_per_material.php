@@ -1,3 +1,28 @@
+<?php 
+
+include('session_manager.php'); 
+checkRoleAccess([
+    'Superadmin', 
+    'Kabag', 
+    'Kasie', 
+    'Kasubsie', 
+    'Admin QC', 
+    'Koordinator QC', 
+    'Mandor Off Farm', 
+    'Analis Off Farm', 
+    // 'Mandor On Farm', 
+    // 'Analis On Farm', 
+    // 'Operator Pabrikasi',
+    // 'Staff Teknik',
+    // 'Staff Tanaman',
+    // 'Staff TUK',
+    // 'Direksi',
+    // 'Tamu',
+    ]);
+include('header_rev.php'); 
+
+?>
+
 <?php
 require_once 'db.php';
 
@@ -31,8 +56,6 @@ $indicatorStmt->bind_param("i", $material_id);
 $indicatorStmt->execute();
 $indicators = $indicatorStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
-
-<?php include('header.php'); ?>
 
 
 <div class="container-fluid">
