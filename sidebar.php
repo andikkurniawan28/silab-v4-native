@@ -118,6 +118,7 @@ if ($result) {
                 <a class="collapse-item" href="ari2_index.php">ARI 2</a>
                 <a class="collapse-item" href="ari1_belum_teranalisa.php">ARI 1 Belum Teranalisa</a>
                 <a class="collapse-item" href="ari2_belum_teranalisa.php">ARI 2 Belum Teranalisa</a>
+                <!-- <a class="collapse-item" href="penilaian_tebu_index.php">Penilaian Tebu</a> -->
                 <a class="collapse-item" href="master_on_farm_index.php">Master On Farm</a>
             </div>
         </div>

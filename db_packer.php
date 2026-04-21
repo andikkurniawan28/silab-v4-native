@@ -1,8 +1,8 @@
 <?php
 date_default_timezone_set('Asia/Jakarta');
 
-// $host     = "192.168.20.234";
-$host     = "192.168.29.250";
+$host     = "192.168.20.234";
+// $host     = "192.168.29.250";
 $username = "andik";
 $password = "andik";
 $database = "qc";

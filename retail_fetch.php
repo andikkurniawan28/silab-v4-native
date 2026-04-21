@@ -70,6 +70,12 @@ $sql = "
         p.created_at,
         p.mesin_aktif,
         p.value,
+        p.berat_a,
+        p.berat_b,
+        p.berat_c,
+        p.berat_d,
+        p.berat_e,
+        p.berat_f,
         p.created_at
     FROM $baseQuery as p
     $whereClause
@@ -116,6 +122,12 @@ if ($q && $q->num_rows > 0) {
             'created_at'  => !empty($r['created_at']) ? date('d-m-Y H:i', strtotime($r['created_at'])) : '-',
             'mesin_aktif' => $mesinDisplay,
             'value'       => !empty($r['value']) ? number_format($r['value'], 0) : '-',
+            'berat_a'          => $r['berat_a'],
+            'berat_b'          => $r['berat_b'],
+            'berat_c'          => $r['berat_c'],
+            'berat_d'          => $r['berat_d'],
+            'berat_e'          => $r['berat_e'],
+            'berat_f'          => $r['berat_f'],
             'action'      => '
                 <div class="btn-group" role="group">
                     <a href="retail_delete.php?id=' . $r['id'] . '"

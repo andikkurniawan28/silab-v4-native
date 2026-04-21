@@ -11,7 +11,7 @@ checkRoleAccess([
     // 'Mandor Off Farm', 
     // 'Analis Off Farm', 
     'Mandor On Farm', 
-    // 'Analis On Farm', 
+    'Analis On Farm', 
     // 'Operator Pabrikasi',
     // 'Staff Teknik',
     // 'Staff Tanaman',

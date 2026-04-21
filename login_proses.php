@@ -44,6 +44,19 @@ if (mysqli_num_rows($result) === 1) {
         $_SESSION['role_id'] = $user['role_id'];
         $_SESSION['login']    = true;
 
+        $stmt = $conn->prepare("SELECT name FROM roles WHERE id = ?");
+        $stmt->bind_param("i", $user['role_id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $_SESSION['role_name'] = $row['name'];
+        } else {
+            $_SESSION['role_name'] = 'Unknown';
+        }
+        $stmt->close();
+
         // Redirect seperti redirect()->intended()
         $redirect = $_SESSION['intended_url'] ?? 'index.php';
         unset($_SESSION['intended_url']);

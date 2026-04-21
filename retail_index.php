@@ -108,6 +108,42 @@ include('header_rev.php');
                             <input type="number" name="value" class="form-control" step="0.01" required>
                         </div>
 
+                        <!-- berat_a -->
+                        <div class="form-group">
+                            <label><?= ucwords('berat_a') ?></label>
+                            <input type="number" name="berat_a" class="form-control" step="0.01">
+                        </div>
+
+                        <!-- berat_b -->
+                        <div class="form-group">
+                            <label><?= ucwords('berat_b') ?></label>
+                            <input type="number" name="berat_b" class="form-control" step="0.01">
+                        </div>
+
+                        <!-- berat_c -->
+                        <div class="form-group">
+                            <label><?= ucwords('berat_c') ?></label>
+                            <input type="number" name="berat_c" class="form-control" step="0.01">
+                        </div>
+
+                        <!-- berat_d -->
+                        <div class="form-group">
+                            <label><?= ucwords('berat_d') ?></label>
+                            <input type="number" name="berat_d" class="form-control" step="0.01">
+                        </div>
+
+                        <!-- berat_e -->
+                        <div class="form-group">
+                            <label><?= ucwords('berat_e') ?></label>
+                            <input type="number" name="berat_e" class="form-control" step="0.01">
+                        </div>
+
+                        <!-- berat_f -->
+                        <div class="form-group">
+                            <label><?= ucwords('berat_f') ?></label>
+                            <input type="number" name="berat_f" class="form-control" step="0.01">
+                        </div>
+
                         <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
 
                         <button class="btn btn-primary btn-block">
@@ -137,6 +173,12 @@ include('header_rev.php');
                                     <th>Jam</th> -->
                                     <th>Mesin Aktif</th>
                                     <th>Total (Kg)</th>
+                                    <th>Berat A</th>
+                                    <th>Berat B</th>
+                                    <th>Berat C</th>
+                                    <th>Berat D</th>
+                                    <th>Berat E</th>
+                                    <th>Berat F</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -168,6 +210,12 @@ $('#retailTable').DataTable({
         // {data: 'jam'},
         {data: 'mesin_aktif'},
         {data: 'value'},
+        {data: 'berat_a'},
+        {data: 'berat_b'},
+        {data: 'berat_c'},
+        {data: 'berat_d'},
+        {data: 'berat_e'},
+        {data: 'berat_f'},
         {data: 'action', orderable: false}
     ]
 });

@@ -31,20 +31,20 @@ $role_id = $_SESSION['role_id'];
  * 2. AMBIL ROLE NAME DARI DATABASE
  * =========================
  */
-if (!isset($_SESSION['role_name'])) {
-    $stmt = $conn->prepare("SELECT name FROM roles WHERE id = ?");
-    $stmt->bind_param("i", $role_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+// if (!isset($_SESSION['role_name'])) {
+//     $stmt = $conn->prepare("SELECT name FROM roles WHERE id = ?");
+//     $stmt->bind_param("i", $role_id);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
     
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $_SESSION['role_name'] = $row['name'];
-    } else {
-        $_SESSION['role_name'] = 'Unknown';
-    }
-    $stmt->close();
-}
+//     if ($result->num_rows > 0) {
+//         $row = $result->fetch_assoc();
+//         $_SESSION['role_name'] = $row['name'];
+//     } else {
+//         $_SESSION['role_name'] = 'Unknown';
+//     }
+//     $stmt->close();
+// }
 
 $role_name = $_SESSION['role_name'];
 

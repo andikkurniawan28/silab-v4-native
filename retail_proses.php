@@ -9,40 +9,66 @@ function generateTimestamp($date, $hour){
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $tanggal = $_POST['tanggal'];
-    $jam = $_POST['jam'];
-    // $user_id = $_POST['user_id'];
-    $value = $_POST['value'];
+    $jam     = $_POST['jam'];
+    $value   = $_POST['value'];
+
+    // Nullable berat
+    $berat_a = $_POST['berat_a'] !== '' ? $_POST['berat_a'] : null;
+    $berat_b = $_POST['berat_b'] !== '' ? $_POST['berat_b'] : null;
+    $berat_c = $_POST['berat_c'] !== '' ? $_POST['berat_c'] : null;
+    $berat_d = $_POST['berat_d'] !== '' ? $_POST['berat_d'] : null;
+    $berat_e = $_POST['berat_e'] !== '' ? $_POST['berat_e'] : null;
+    $berat_f = $_POST['berat_f'] !== '' ? $_POST['berat_f'] : null;
 
     $created_at = generateTimestamp($tanggal, $jam);
     
-    // Mengambil nilai dari checkbox yang dicentang
+    // Checkbox mesin aktif
     $mesin_aktif = isset($_POST['mesin_aktif']) ? $_POST['mesin_aktif'] : [];
-    
-    // Convert array ke JSON untuk disimpan di database
     $mesin_aktif_json = json_encode($mesin_aktif);
     
     try {
-        $stmt = $conn->prepare("INSERT INTO retail  
-                              (mesin_aktif, value, created_at) 
-                              VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("
+            INSERT INTO retail  
+            (
+                mesin_aktif,
+                value,
+                berat_a,
+                berat_b,
+                berat_c,
+                berat_d,
+                berat_e,
+                berat_f,
+                created_at
+            ) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
         
-        $stmt->execute([$mesin_aktif_json, $value, $created_at]);
+        $stmt->execute([
+            $mesin_aktif_json,
+            $value,
+            $berat_a,
+            $berat_b,
+            $berat_c,
+            $berat_d,
+            $berat_e,
+            $berat_f,
+            $created_at
+        ]);
         
         $_SESSION['flash'] = [
-            'type'=>'success',
-            'title'=>'Berhasil',
-            'message'=>'Data berhasil disimpan'
+            'type'    => 'success',
+            'title'   => 'Berhasil',
+            'message' => 'Data berhasil disimpan'
         ];
         header("Location: retail_index.php");
         exit();
         
     } catch (PDOException $e) {
         $_SESSION['flash'] = [
-            'type'=>'error',
-            'title'=>'Gagal simpan',
-            'message'=>$e->getMessage()
+            'type'    => 'error',
+            'title'   => 'Gagal simpan',
+            'message' => $e->getMessage()
         ];
-        // $_SESSION['error'] = "Gagal menyimpan data: " . $e->getMessage();
         header("Location: retail_index.php");
         exit();
     }
