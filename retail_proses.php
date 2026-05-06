@@ -25,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Checkbox mesin aktif
     $mesin_aktif = isset($_POST['mesin_aktif']) ? $_POST['mesin_aktif'] : [];
     $mesin_aktif_json = json_encode($mesin_aktif);
+
+    $expired_checked = isset($_POST['expired_checked']) ? 1 : 0;
     
     try {
         $stmt = $conn->prepare("
@@ -38,9 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 berat_d,
                 berat_e,
                 berat_f,
+                expired_checked,
                 created_at
             ) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ");
         
         $stmt->execute([
@@ -52,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $berat_d,
             $berat_e,
             $berat_f,
+            $expired_checked,
             $created_at
         ]);
         

@@ -76,6 +76,7 @@ $sql = "
         p.berat_d,
         p.berat_e,
         p.berat_f,
+        p.expired_checked,
         p.created_at
     FROM $baseQuery as p
     $whereClause
@@ -116,6 +117,8 @@ if ($q && $q->num_rows > 0) {
         
         // Format created_at
         $created_atDisplay = !empty($r['created_at']) ? date('d-m-Y', strtotime($r['created_at'])) : '-';
+
+        $expiredDisplay = !empty($r['expired_checked']) ? '✔️' : '-';
         
         $data[] = [
             'id'          => $r['id'],
@@ -128,6 +131,7 @@ if ($q && $q->num_rows > 0) {
             'berat_d'          => $r['berat_d'],
             'berat_e'          => $r['berat_e'],
             'berat_f'          => $r['berat_f'],
+            'expired_checked'   => $expiredDisplay,
             'action'      => '
                 <div class="btn-group" role="group">
                     <a href="retail_delete.php?id=' . $r['id'] . '"

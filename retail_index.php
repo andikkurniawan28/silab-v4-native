@@ -144,6 +144,16 @@ include('header_rev.php');
                             <input type="number" name="berat_f" class="form-control" step="0.01">
                         </div>
 
+                        <!-- berat_f -->
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="expired_checked" id="expired_checked" value="1">
+                            <label class="form-check-label" for="expired_checked">
+                                Expired Ada
+                            </label>
+                        </div>
+
+                        <br><br>
+
                         <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?? 0 ?>">
 
                         <button class="btn btn-primary btn-block">
@@ -173,12 +183,13 @@ include('header_rev.php');
                                     <th>Jam</th> -->
                                     <th>Mesin Aktif</th>
                                     <th>Total (Kg)</th>
-                                    <th>Berat A</th>
-                                    <th>Berat B</th>
-                                    <th>Berat C</th>
-                                    <th>Berat D</th>
-                                    <th>Berat E</th>
-                                    <th>Berat F</th>
+                                    <th>A</th>
+                                    <th>B</th>
+                                    <th>C</th>
+                                    <th>D</th>
+                                    <th>E</th>
+                                    <th>F</th>
+                                    <th>Expired</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -216,6 +227,7 @@ $('#retailTable').DataTable({
         {data: 'berat_d'},
         {data: 'berat_e'},
         {data: 'berat_f'},
+        {data: 'expired_checked'},
         {data: 'action', orderable: false}
     ]
 });
