@@ -20,8 +20,6 @@ checkRoleAccess([
     // 'Tamu',
     ]);
 
-?>
-
 $id = $_GET['id'];
 
 $conn->query("

@@ -18,7 +18,6 @@ function findFactor($conn, $name){
 /* ---------- INPUT ---------- */
 $date       = $_POST['date'];
 $hour       = $_POST['created_at'];
-$tebu       = floatval($_POST['tebu']);
 $totalizer  = floatval($_POST['totalizer']);
 
 $created_at = generateTimestamp($date,$hour);
@@ -27,19 +26,16 @@ $created_at = generateTimestamp($date,$hour);
 $last = $conn->query("SELECT * FROM imbibitions ORDER BY id DESC LIMIT 1")->fetch_assoc();
 
 if($last){
-    $factor = findFactor($conn,'Raw Juice');
-    $flow_nm = $factor * ($totalizer - $last['totalizer']);
-    $nm_persen_tebu = ($flow_nm / $tebu) * 1000;
+    $flow_nm = 1 * ($totalizer - $last['totalizer']);
 }else{
     $flow_nm = 0;
-    $nm_persen_tebu = 0;
 }
 
 $conn->query("
     INSERT INTO imbibitions
-    (tebu,totalizer,flow_nm,nm_persen_tebu,created_at,user_id)
+    (totalizer,flow_imb,created_at,user_id)
     VALUES
-    ('$tebu','$totalizer','$flow_nm','$nm_persen_tebu','$created_at','".$_SESSION['user_id']."')
+    ('$totalizer','$flow_nm','$created_at','".$_SESSION['user_id']."')
 ");
 
 $_SESSION['flash'] = [

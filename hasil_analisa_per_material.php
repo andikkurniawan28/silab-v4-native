@@ -73,7 +73,7 @@ $indicators = $indicatorStmt->get_result()->fetch_all(MYSQLI_ASSOC);
                         <tr>
                             <th>Barcode</th>
                             <th>Timestamp Laporan</th>
-                            <th>Timestamp Riil</th>
+                            <!-- <th>Timestamp Riil</th> -->
 
                             <?php foreach ($indicators as $ind): ?>
                                 <th><?= htmlspecialchars($ind['name']) ?></th>
@@ -107,13 +107,14 @@ $(function () {
         processing: true,
         serverSide: true,
         ajax: {
+            // url: 'hasil_analisa_per_material_fetch_test.php?material_id=' + materialId,
             url: 'hasil_analisa_per_material_fetch.php?material_id=' + materialId,
             type: 'POST'
         },
         columns: [
             { data: 'id' },
             { data: 'created_at' },
-            { data: 'timestamp_riil' },
+            // { data: 'timestamp_riil' },
             ...indicatorColumns
         ],
         dom: 'lBfrtip',

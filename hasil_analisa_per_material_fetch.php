@@ -62,6 +62,7 @@ $totalStmt = $conn->prepare("
     WHERE material_id = ? AND 
     is_verified = 1
 ");
+
 $totalStmt->bind_param("i", $material_id);
 $totalStmt->execute();
 $recordsTotal = $totalStmt->get_result()->fetch_assoc()['total'];

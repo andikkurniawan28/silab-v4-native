@@ -4,6 +4,21 @@
  * Include di header.php
  */
 
+// 30 hari
+$session_lifetime = 60 * 60 * 24 * 30;
+
+// Session server
+ini_set('session.gc_maxlifetime', $session_lifetime);
+
+// Cookie browser
+session_set_cookie_params([
+    'lifetime' => $session_lifetime,
+    'path'     => '/',
+    'secure'   => false, // true jika HTTPS
+    'httponly' => true,
+    'samesite' => 'Lax'
+]);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
