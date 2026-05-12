@@ -37,6 +37,7 @@ include('header_rev.php');
                         <th>Pol NPP</th>
                         <th>HK NPP</th>
                         <th>%R NPP</th>
+                        <th>Pol Ampas</th>
                         <th>HK Tetes</th>
                         <th>IU GKP</th>
                         <th>Tebu Tergiling</th>
@@ -53,7 +54,7 @@ include('header_rev.php');
 <script>
 const today = new Date().toISOString().slice(0,10);
 
-// 🔥 ambil dari API kamu
+// 🔥 ambil dari API
 fetch('dashboard_engine.php?date=' + today)
 .then(res => res.json())
 .then(data => renderTable(data))
@@ -63,14 +64,23 @@ fetch('dashboard_engine.php?date=' + today)
 });
 
 function renderTable(data) {
+
     const map = {};
 
+    /* =========================================
+       INSERT DATA KE MAP
+    ========================================= */
     function insert(arr, key) {
         (arr || []).forEach(row => {
-            if (!map[row.created_at]) {
-                map[row.created_at] = { created_at: row.created_at };
+
+            // pastikan format key per jam
+            const hourKey = row.created_at.substring(0,13);
+
+            if (!map[hourKey]) {
+                map[hourKey] = {};
             }
-            map[row.created_at][key] = parseFloat(row.value) || 0;
+
+            map[hourKey][key] = parseFloat(row.value) || 0;
         });
     }
 
@@ -80,6 +90,7 @@ function renderTable(data) {
     insert(data.rendemen_npp, 'rendemen');
     insert(data.hk_tetes, 'hk_tetes');
     insert(data.iu_gkp, 'iu_gkp');
+    insert(data.pol_ampas, 'pol_ampas');
     insert(data.tebu_tergiling, 'tebu');
     insert(data.flow_nm, 'nm');
     insert(data.flow_imb, 'imb');
@@ -87,39 +98,62 @@ function renderTable(data) {
     const tbody = document.querySelector('#dashboardTable tbody');
     tbody.innerHTML = '';
 
-    // sort by time
-    const rows = Object.values(map).sort((a,b) => 
-        new Date(a.created_at) - new Date(b.created_at)
-    );
+    /* =========================================
+       LOOP 24 JAM SHIFT
+       06:00 → 05:00
+    ========================================= */
+    const baseDate = new Date(today + 'T06:00:00');
 
-    rows.forEach(r => {
+    for(let i = 0; i < 24; i++) {
+
+        const current = new Date(baseDate);
+        current.setHours(current.getHours() + i);
+
+        const hourKey =
+            current.getFullYear() + '-' +
+            String(current.getMonth()+1).padStart(2,'0') + '-' +
+            String(current.getDate()).padStart(2,'0') + ' ' +
+            String(current.getHours()).padStart(2,'0');
+
+        const row = map[hourKey] || {};
+
         tbody.innerHTML += `
             <tr>
-                <td>${formatJam(r.created_at)}</td>
-                <td>${val(r.brix)}</td>
-                <td>${val(r.pol)}</td>
-                <td>${val(r.hk)}</td>
-                <td>${val(r.rendemen)}</td>
-                <td>${val(r.hk_tetes)}</td>
-                <td>${val(r.iu_gkp)}</td>
-                <td>${val(r.tebu)}</td>
-                <td>${val(r.nm)}</td>
-                <td>${val(r.imb)}</td>
+                <td>${formatJam(current)}</td>
+                <td>${val(row.brix)}</td>
+                <td>${val(row.pol)}</td>
+                <td>${val(row.hk)}</td>
+                <td>${val(row.rendemen)}</td>
+                <td>${val(row.pol_ampas)}</td>
+                <td>${val(row.hk_tetes)}</td>
+                <td>${val(row.iu_gkp)}</td>
+                <td>${val(row.tebu)}</td>
+                <td>${val(row.nm)}</td>
+                <td>${val(row.imb)}</td>
             </tr>
         `;
-    });
+    }
 }
 
-/* ================= HELPERS ================= */
+/* =========================================
+   HELPERS
+========================================= */
 
 function val(v){
-    return (v || v === 0) ? Number(v).toFixed(2) : '-';
+    return (v || v === 0)
+        ? Number(v).toFixed(2)
+        : '';
 }
 
-function formatJam(datetime){
-    const d = new Date(datetime);
-    const h1 = String(d.getHours()).padStart(2,'0');
-    const h2 = String((d.getHours()+1)%24).padStart(2,'0');
+function formatJam(dateObj){
+
+    const h1 = String(dateObj.getHours()).padStart(2,'0');
+
+    const next = new Date(dateObj);
+    next.setHours(next.getHours() + 1);
+
+    const h2 = String(next.getHours()).padStart(2,'0');
+
     return `${h1}:00 - ${h2}:00`;
 }
 </script>

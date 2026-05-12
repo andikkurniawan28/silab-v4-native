@@ -132,6 +132,23 @@ $dashboard['iu_gkp'] = getHourlyAvg($conn, "
 ", $start, $end);
 
 /* =====================================================
+   7. Pol Ampas (material_id = 12)
+===================================================== */
+$dashboard['pol_ampas'] = getHourlyAvg($conn, "
+    SELECT 
+        DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS created_at,
+        AVG(Pol_Ampas) AS value
+    FROM analisa_off_farm_new
+    WHERE material_id = 12
+      AND is_verified = 1
+      AND Pol_Ampas IS NOT NULL
+      AND Pol_Ampas != 0
+      AND created_at BETWEEN ? AND ?
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H')
+    ORDER BY created_at ASC
+", $start, $end);
+
+/* =====================================================
    7. TABLE BALANCES
 ===================================================== */
 
