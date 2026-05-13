@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=0.8, shrink-to-fit=no">
 <meta name="description" content="Sistem Informasi Laboratorium">
 <meta name="author" content="Andik Kurniawan">
-<title>Sistem Informasi Laboratorium</title>
+<title>Silab V4</title>
 <link rel="icon" type="image/png" href="/silab-v4/admin_template/img/QC.png" />
 <link href="/silab-v4/admin_template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="/silab-v4/admin_template/css/sb-admin-2.min.css" rel="stylesheet">

@@ -13,7 +13,7 @@ if (!isset($_SESSION['login']) && !isset($_SESSION['intended_url'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>SILAB</title>
+	<title>Silab V4</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
