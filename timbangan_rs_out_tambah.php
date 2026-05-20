@@ -1,4 +1,4 @@
-<?php include('header.php'); ?>
+<?php include('header2.php'); ?>
 
 <div class="container-fluid">
     <h4 class="mb-3">Tambah Timbangan RS OUT per Charge</h4>
