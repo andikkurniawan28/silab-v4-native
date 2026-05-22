@@ -13,7 +13,7 @@
         
         <div class="form-group">
             <label>Value</label>
-            <input type="number" step="0.01" id="value" name="value"
+            <input type="number" step="any" id="value" name="value"
                    class="form-control" required>
         </div>
 

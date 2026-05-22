@@ -52,12 +52,29 @@ while ($row = $q->fetch_assoc()) {
     ");
 
     $hasil = '<ul class="mb-0 pl-3">';
+    // while ($ind = $indQ->fetch_assoc()) {
+    //     $col = ucwords(str_replace(' ', '_', $ind['name']));
+    //     $value = $row[$col] ?? '-';
+    //     $hasil .= "<li>{$ind['name']} : {$value}</li>";
+    // }
+    // $hasil .= '</ul>';
+
     while ($ind = $indQ->fetch_assoc()) {
-        $col = ucwords(str_replace(' ', '_', $ind['name']));
+
+        // Format nama kolom
+        $col = str_replace(' ', '_', $ind['name']);
+
+        // Khusus pH jangan diubah jadi Ph
+        if (strtolower($col) !== 'ph') {
+            $col = ucwords($col);
+        } else {
+            $col = 'pH';
+        }
+
         $value = $row[$col] ?? '-';
+
         $hasil .= "<li>{$ind['name']} : {$value}</li>";
     }
-    $hasil .= '</ul>';
 
     $data[] = [
         'check' => '<input type="checkbox" class="row-check" name="ids[]" value="'.$row['id'].'">',

@@ -45,7 +45,7 @@ $factor = $conn->query("
 
         <div class="form-group">
             <label>Value</label>
-            <input type="number" step="0.01"
+            <input type="number" step="any"
                    name="value"
                    class="form-control"
                    value="<?= $factor['value']; ?>"

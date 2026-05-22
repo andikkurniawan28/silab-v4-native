@@ -1,6 +1,6 @@
 <?php
 require_once('db.php');
-// require_once('db_packer2.php');
+require_once('db_packer2.php');
 
 function determineTimeRange($date, $shift)
 {
@@ -285,8 +285,9 @@ function getRs($conn, $time, $table)
 {
     $stmt = $conn->prepare("
         SELECT SUM(netto) AS total
-        FROM $table
-        WHERE created_at >= ?
+        FROM in_process_weighings
+        WHERE line = '$table'
+          AND created_at >= ?
           AND created_at < ?
     ");
     $stmt->bind_param("ss", $time['current'], $time['tomorrow']);
@@ -316,17 +317,17 @@ $dataRows   = serve($conn, $_POST['date'], $_POST['shift']);
 $indicators = getIndicators($conn);
 $timbangan_tetes = getTimbanganTetes($conn, $time);
 
-$rs_in = 0;
-$rs_out = 0;
-$reject = 0;
-$conveyor_utara = 0;
-$conveyor_selatan = 0;
+// $rs_in = 0;
+// $rs_out = 0;
+// $reject = 0;
+// $conveyor_utara = 0;
+// $conveyor_selatan = 0;
 
-// $rs_in = getRsIn($conn2, $time);
-// $rs_out = getRs($conn2, $time, 'pringkilan');
-// $reject = getRs($conn2, $time, 'rs_out');
-// $conveyor_utara = getRs($conn2, $time, 'conv_utara');
-// $conveyor_selatan = getRs($conn2, $time, 'conv_selatan');
+$rs_in = getRsIn($conn2, $time);
+$rs_out = getRs($conn2, $time, 'pringkilan');
+$reject = getRs($conn2, $time, 'rs_out');
+$conveyor_utara = getRs($conn2, $time, 'conv_utara');
+$conveyor_selatan = getRs($conn2, $time, 'conv_selatan');
 
 $tebu_tergiling = getBalance($conn, $time, 'tebu', 'balances');
 $nira_mentah_pemurnian = getBalance($conn, $time, 'flow_nm', 'balances');

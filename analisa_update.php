@@ -9,6 +9,7 @@ if (!isset($_POST['id'])) {
     die('ID analisa tidak valid');
 }
 
+// ID Barcode terbukti angka murni "38"
 $id = intval($_POST['id']);
 
 /**
@@ -29,14 +30,21 @@ if (!empty($_POST['indicator']) && is_array($_POST['indicator'])) {
 
     foreach ($_POST['indicator'] as $column => $value) {
 
-        // validasi kolom dari DB
+        // --- FIX KHUSUS pH ---
+        // Dari JSON terbukti form mengirim "PH". 
+        // Jika terdeteksi "PH", langsung paksa ubah menjadi "pH" sesuai database kamu.
+        if ($column === 'PH') {
+            $column = 'pH';
+        }
+
+        // Validasi apakah kolom ada di database
         if (!in_array($column, $validCols)) {
             continue;
         }
 
         $value = trim($value);
 
-        // jika kosong → NULL
+        // Jika kosong → NULL
         if ($value === '') {
             $set[] = "`$column` = NULL";
         } else {
@@ -51,7 +59,7 @@ if (empty($set)) {
 }
 
 /**
- * Update TANPA menyentuh is_verified
+ * Eksekusi Query Update
  */
 $sql = "
     UPDATE analisa_off_farm_new

@@ -83,6 +83,7 @@ $indicators = $conn->query("
                     <?php while ($i = $indicators->fetch_assoc()): ?>
                         <?php
                             $column = ucwords(str_replace(' ', '_', $i['name']));
+                            // $column = str_replace(' ', '_', $i['name']);
                             $value  = $analisa[$column] ?? '';
                         ?>
                         <div class="col-md-3 col-sm-6 mb-3">

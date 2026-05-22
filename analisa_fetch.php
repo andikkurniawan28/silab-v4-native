@@ -60,6 +60,46 @@ $q = $conn->query($sql);
 
 $data = [];
 
+// while ($row = $q->fetch_assoc()) {
+
+//     /* ambil indikator per material */
+//     $indQ = $conn->query("
+//         SELECT i.name
+//         FROM methods md
+//         JOIN indicators i ON i.id = md.indicator_id
+//         WHERE md.material_id = '{$row['material_id']}'
+//     ");
+
+//     $hasil = '<ul class="mb-0 pl-3">';
+//     while ($ind = $indQ->fetch_assoc()) {
+//         $col = ucwords(str_replace(' ', '_', $ind['name']));
+//         $value = (isset($row[$col]) && $row[$col] !== '')
+//             ? $row[$col]
+//             : '-';
+
+//         $hasil .= "<li>{$ind['name']} : {$value}</li>";
+//     }
+//     $hasil .= '</ul>';
+
+//     /* status */
+//     $statusBadge = $row['is_verified'] == 1
+//         ? '<span class="badge badge-success">Sudah diverifikasi</span>'
+//         : '<span class="badge badge-dark text-white">Belum diverifikasi</span>';
+
+//     $data[] = [
+//         'id' => $row['id'],
+//         'timestamp' => $row['created_at'],
+//         'material' => $row['material'],
+//         'user' => $row['user'],
+//         'hasil_analisa' => $hasil,
+//         'status' => $statusBadge,
+//         'action' => '
+//             <a href="analisa_edit.php?id='.$row['id'].'"
+//                class="btn btn-success btn-sm">Edit</a>
+//         '
+//     ];
+// }
+
 while ($row = $q->fetch_assoc()) {
 
     /* ambil indikator per material */
@@ -73,6 +113,13 @@ while ($row = $q->fetch_assoc()) {
     $hasil = '<ul class="mb-0 pl-3">';
     while ($ind = $indQ->fetch_assoc()) {
         $col = ucwords(str_replace(' ', '_', $ind['name']));
+        
+        // --- IF KHUSUS UNTUK pH ---
+        // Jika hasil ucwords merubahnya jadi 'PH', paksa balikkan ke 'pH' sesuai kolom di database
+        if ($col === 'PH') {
+            $col = 'pH';
+        }
+
         $value = (isset($row[$col]) && $row[$col] !== '')
             ? $row[$col]
             : '-';

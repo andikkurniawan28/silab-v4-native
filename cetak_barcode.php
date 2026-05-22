@@ -87,9 +87,23 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <input type="hidden" name="material_id"
                                    value="<?= $material['id']; ?>">
 
+                            <?php if (in_array($material['id'], [43, 44, 45, 46, 47, 48, 49])) : ?>
+
+                                <div class="mb-2">
+                                    <label for="pan" class="form-label">Pan</label>
+                                    <input type="number" min="1" max="18" name="pan" id="pan" value="" class="form-control" required >
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="hl" class="form-label">HL</label>
+                                    <input type="number" name="volume" id="hl" value="" class="form-control" required>
+                                </div>
+
+                            <?php endif; ?>
+
                             <button type="submit"
                                     class="btn btn-warning btn-sm text-dark"
-                                    onclick="this.form.submit(); this.disabled=true;">
+                            >
                                 Cetak
                                 <i class="fas fa-print"></i>
                             </button>

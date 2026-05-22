@@ -34,6 +34,8 @@ include('header_rev.php');
                 <tr>
                     <th>ID</th>
                     <th>Material</th>
+                    <th>Pan</th>
+                    <th>Volume</th>
                     <th>Sampler</th>
                     <th>Timestamp Laporan</th>
                     <th>Timestamp Riil</th>
@@ -59,6 +61,8 @@ $(function () {
         columns: [
             { data: 'id' },
             { data: 'material' },
+            { data: 'pan' },
+            { data: 'volume' },
             { data: 'user' },
             { data: 'created_at' },
             { data: 'timestamp_riil' },

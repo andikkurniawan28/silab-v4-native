@@ -15,6 +15,10 @@ if (!isset($_POST['material_id'])) {
 $material_id = $_POST['material_id'];
 $user_id     = $_SESSION['user_id'];
 
+// Ambil pan & volume jika ada
+$pan    = isset($_POST['pan']) ? $_POST['pan'] : null;
+$volume = isset($_POST['volume']) ? $_POST['volume'] : null;
+
 function generateHour()
 {
     return date('Y-m-d H:i:00');
@@ -28,9 +32,9 @@ $timestamp_riil = date('Y-m-d H:i:s');
  */
 $sql = "
     INSERT INTO analisa_off_farm_new
-    (material_id, user_id, created_at, timestamp_riil)
+    (material_id, user_id, pan, volume, created_at, timestamp_riil)
     VALUES
-    ('$material_id', '$user_id', '$created_at', '$timestamp_riil')
+    ('$material_id', '$user_id', " . ($pan !== null ? "'$pan'" : "NULL") . ", " . ($volume !== null ? "'$volume'" : "NULL") . ", '$created_at', '$timestamp_riil')
 ";
 
 if (!$conn->query($sql)) {
