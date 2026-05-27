@@ -24,13 +24,13 @@ include('header_rev.php');
 ?>
 
 <div class="container-fluid">
-    <h4 class="mb-3">Analisa CaO</h4>
+    <h4 class="mb-3">Analisa pH & Turbidity</h4>
 
     <div class="row">
 
         <!-- LEFT : FORM -->
         <div class="col-md-3">
-            <form method="POST" action="analisa_cao_proses.php">
+            <form method="POST" action="analisa_ph_proses.php">
 
                 <div class="form-group">
                     <label>Barcode</label>
@@ -38,13 +38,13 @@ include('header_rev.php');
                 </div>
 
                 <div class="form-group">
-                    <label>Volume Titrasi</label>
-                    <input type="number" step="0.01" name="volume_titrasi" class="form-control" required>
+                    <label>pH</label>
+                    <input type="number" step="any" name="pH" class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <label>Pengenceran</label>
-                    <input type="number" step="0.01" name="pengenceran" value="6" class="form-control" required>
+                    <label>Turbidity</label>
+                    <input type="number" step="any" name="Turbidity" class="form-control">
                 </div>
 
                 <button class="btn btn-primary btn-block">
@@ -55,7 +55,7 @@ include('header_rev.php');
 
         <!-- RIGHT : TABLE -->
         <div class="col-md-9">
-            <table id="caoTable"
+            <table id="phTable"
                    class="table table-bordered table-striped text-dark"
                    width="100%">
                 <thead>
@@ -63,7 +63,8 @@ include('header_rev.php');
                         <th>Barcode</th>
                         <th>Timestamp</th>
                         <th>Material</th>
-                        <th>CaO</th>
+                        <th>pH</th>
+                        <th>Turbidity</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -77,11 +78,11 @@ include('header_rev.php');
 
 <script>
 $(function(){
-    $('#caoTable').DataTable({
+    $('#phTable').DataTable({
         processing: true,
         serverSide: true,
         ajax: {
-            url: 'analisa_cao_fetch.php',
+            url: 'analisa_ph_fetch.php',
             type: 'POST'
         },
         order: [[0,'desc']],
@@ -89,7 +90,8 @@ $(function(){
             { data:'id' },
             { data:'created_at' },
             { data:'material' },
-            { data:'cao' },
+            { data:'ph' },
+            { data:'turbidity' },
             { data:'action', orderable:false }
         ]
     });

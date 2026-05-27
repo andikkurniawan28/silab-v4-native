@@ -114,6 +114,7 @@ $materialsQ = $conn->query("
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Waktu</th>
+                                            <th>ID</th>
                                             <?php foreach ($indicators as $ind): ?>
                                                 <th><?= htmlspecialchars($ind['name']); ?></th>
                                             <?php endforeach; ?>
@@ -125,9 +126,14 @@ $materialsQ = $conn->query("
                                                 <td>
                                                     <?= date('d-m-Y H:i', strtotime($row['created_at'])); ?>
                                                 </td>
+                                                <td><?= $row['id'] ?></td>
                                                 <?php foreach ($indicators as $ind): ?>
+                                                    <?php
+                                                        $key = str_replace(' ', '_', $ind['name']);
+                                                        $value = $row[$key];
+                                                    ?>
                                                     <td>
-                                                        <?= $row[str_replace(' ', '_', $ind['name'])] ?? '-'; ?>
+                                                        <?= ($value === null || $value === '') ? '-' : $value; ?>
                                                     </td>
                                                 <?php endforeach; ?>
                                             </tr>

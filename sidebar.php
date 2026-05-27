@@ -83,6 +83,8 @@ if ($result) {
                 <a class="collapse-item" href="analisa_ampas_index.php">Analisa Ampas</a>
                 <a class="collapse-item" href="analisa_ampas_john_payne_index.php">Analisa Ampas J.Payne</a>
                 <a class="collapse-item" href="analisa_ketel_index.php">Analisa Ketel</a>
+                <a class="collapse-item" href="analisa_air_index.php">Analisa %Air</a>
+                <a class="collapse-item" href="analisa_ph_index.php">Analisa pH & Turbidity</a>
                 <a class="collapse-item" href="analisa_cao_index.php">Analisa CaO</a>
                 <a class="collapse-item" href="analisa_so2_index.php">Analisa SO<sub>2</sub></a>
                 <a class="collapse-item" href="analisa_bjb_index.php">Analisa BJB</a>
