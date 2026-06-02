@@ -317,17 +317,19 @@ $dataRows   = serve($conn, $_POST['date'], $_POST['shift']);
 $indicators = getIndicators($conn);
 $timbangan_tetes = getTimbanganTetes($conn, $time);
 
-// $rs_in = 0;
-// $rs_out = 0;
-// $reject = 0;
-// $conveyor_utara = 0;
-// $conveyor_selatan = 0;
+$rs_in = '#';
+$rs_out = '#';
+$reject = '#';
+$conveyor_utara = '#';
+$conveyor_selatan = '#';
 
-$rs_in = getRsIn($conn2, $time);
-$rs_out = getRs($conn2, $time, 'pringkilan');
-$reject = getRs($conn2, $time, 'rs_out');
-$conveyor_utara = getRs($conn2, $time, 'conv_utara');
-$conveyor_selatan = getRs($conn2, $time, 'conv_selatan');
+if ($conn2) {
+    $rs_in = getRsIn($conn2, $time);
+    $rs_out = getRs($conn2, $time, 'pringkilan');
+    $reject = getRs($conn2, $time, 'rs_out');
+    $conveyor_utara = getRs($conn2, $time, 'conv_utara');
+    $conveyor_selatan = getRs($conn2, $time, 'conv_selatan');
+}
 
 $tebu_tergiling = getBalance($conn, $time, 'tebu', 'balances');
 $nira_mentah_pemurnian = getBalance($conn, $time, 'flow_nm', 'balances');
@@ -487,27 +489,27 @@ if($_POST['handling'] == 'export'){
                                 </tr>
                                 <tr>
                                     <td>RS IN</td>
-                                    <td><?= number_format($rs_in) ?></td>
+                                    <td><?= is_numeric($rs_in) ? number_format($rs_in) : '#' ?></td>
                                     <td>Kg</td>
                                 </tr>
                                 <tr>
                                     <td>RS OUT</td>
-                                    <td><?= number_format($rs_out) ?></td>
+                                    <td><?= is_numeric($rs_out) ? number_format($rs_out) : '#' ?></td>
                                     <td>Kg</td>
                                 </tr>
                                 <tr>
                                     <td>REJECT</td>
-                                    <td><?= number_format($reject) ?></td>
+                                    <td><?= is_numeric($reject) ? number_format($reject) : '#' ?></td>
                                     <td>Kg</td>
                                 </tr>
                                 <tr>
                                     <td>CONVEYOR UTARA</td>
-                                    <td><?= number_format($conveyor_utara) ?></td>
+                                    <td><?= is_numeric($conveyor_utara) ? number_format($conveyor_utara) : '#' ?></td>
                                     <td>Kg</td>
                                 </tr>
                                 <tr>
                                     <td>CONVEYOR SELATAN</td>
-                                    <td><?= number_format($conveyor_selatan) ?></td>
+                                    <td><?= is_numeric($conveyor_selatan) ? number_format($conveyor_selatan) : '#' ?></td>
                                     <td>Kg</td>
                                 </tr>
                             </table>

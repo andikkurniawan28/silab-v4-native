@@ -133,7 +133,7 @@ function indicatorColumn(name) {
     return {
         data: function (row) {
             if (row.is_verified == 1) {
-                return row[name] != 0 ? row[name] : '';
+                return row[name] === null ? '' : row[name];
             }
             return '';
         },

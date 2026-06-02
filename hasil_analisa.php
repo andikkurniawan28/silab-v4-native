@@ -113,7 +113,7 @@ $materialsQ = $conn->query("
                                 <table class="table table-bordered table-sm mb-0 text-center text-sm">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th>Waktu</th>
+                                            <th>Time</th>
                                             <th>ID</th>
                                             <?php foreach ($indicators as $ind): ?>
                                                 <th><?= htmlspecialchars($ind['name']); ?></th>
@@ -133,7 +133,7 @@ $materialsQ = $conn->query("
                                                         $value = $row[$key];
                                                     ?>
                                                     <td>
-                                                        <?= ($value === null || $value === '') ? '-' : $value; ?>
+                                                        <?= ($value === null || $value === '') ? '' : $value; ?>
                                                     </td>
                                                 <?php endforeach; ?>
                                             </tr>
