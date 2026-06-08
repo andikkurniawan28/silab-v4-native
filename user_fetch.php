@@ -43,6 +43,7 @@ $sql = "
         users.id,
         users.name,
         users.username,
+        users.device_token,
         roles.name AS role,
         users.is_active
     FROM users
@@ -67,8 +68,13 @@ while ($row = $query->fetch_assoc()) {
         'role' => $row['role'],
         'name' => $row['name'],
         'username' => $row['username'],
+        'device_token' => $row['device_token'],
         'is_active' => $status,
         'action' => '
+            <a href="user_reset_token.php?id='.$row['id'].'" 
+            class="btn btn-info btn-sm">
+                Reset Token
+            </a>
             <a href="user_edit.php?id='.$row['id'].'" 
             class="btn btn-warning btn-sm">
                 Edit

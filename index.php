@@ -1,31 +1,189 @@
-<?php 
+<?php
 
-include('session_manager.php'); 
+include('session_manager.php');
 checkRoleAccess([
-    'Superadmin', 
-    'Kabag', 
-    'Kasie', 
-    'Kasubsie', 
-    'Admin QC', 
-    'Koordinator QC', 
-    'Mandor Off Farm', 
-    'Analis Off Farm', 
-    'Mandor On Farm', 
-    'Analis On Farm', 
+    'Superadmin',
+    'Kabag',
+    'Kasie',
+    'Kasubsie',
+    'Admin QC',
+    'Koordinator QC',
+    'Mandor Off Farm',
+    'Analis Off Farm',
+    'Mandor On Farm',
+    'Analis On Farm',
     'Operator Pabrikasi',
     // 'Staff Teknik',
     // 'Staff Tanaman',
     // 'Staff TUK',
     // 'Direksi',
     // 'Tamu',
-    ]);
-include('header_rev.php'); 
+]);
+include('header_rev.php');
 
 ?>
 
 <!-- VIEW -->
 <div class="container-fluid">
     <h4 class="mb-3">Home</h4>
+
+    <?php
+
+    // Tentukan tanggal produksi
+    $now = new DateTime();
+
+    if ($now->format('H:i:s') < '05:00:00') {
+        $production_date = date('Y-m-d', strtotime('-1 day'));
+    } else {
+        $production_date = date('Y-m-d');
+    }
+
+    // Rentang shift berdasarkan hari produksi
+    $pagi_start  = $production_date . ' 06:00:00';
+    $pagi_end    = $production_date . ' 12:59:59';
+
+    $sore_start  = $production_date . ' 13:00:00';
+    $sore_end    = $production_date . ' 20:59:59';
+
+    $malam_start = $production_date . ' 21:00:00';
+    $malam_end   = date('Y-m-d 04:59:59', strtotime($production_date . ' +1 day'));
+
+
+    // PAGI
+    $npp_pagi = $conn->query("
+    SELECT
+        AVG(`%R`) AS avg_r,
+        MIN(`%R`) AS min_r,
+        MAX(`%R`) AS max_r,
+        COUNT(*) AS total
+    FROM analisa_off_farm_new
+    WHERE material_id = 3
+      AND is_verified = 1
+      AND created_at BETWEEN '$pagi_start' AND '$pagi_end'
+")->fetch_assoc();
+
+
+    // SORE
+    $npp_sore = $conn->query("
+    SELECT
+        AVG(`%R`) AS avg_r,
+        MIN(`%R`) AS min_r,
+        MAX(`%R`) AS max_r,
+        COUNT(*) AS total
+    FROM analisa_off_farm_new
+    WHERE material_id = 3
+      AND is_verified = 1
+      AND created_at BETWEEN '$sore_start' AND '$sore_end'
+")->fetch_assoc();
+
+
+    // MALAM
+    $npp_malam = $conn->query("
+    SELECT
+        AVG(`%R`) AS avg_r,
+        MIN(`%R`) AS min_r,
+        MAX(`%R`) AS max_r,
+        COUNT(*) AS total
+    FROM analisa_off_farm_new
+    WHERE material_id = 3
+      AND is_verified = 1
+      AND created_at BETWEEN '$malam_start' AND '$malam_end'
+")->fetch_assoc();
+
+    ?>
+    <div class="row">
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 bg-primary">
+                <div class="card-body bg-primary">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                NPP Pagi
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= number_format($npp_pagi['avg_r'] ?? 0, 2) ?><sub>(%R)</sub>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= $npp_pagi['total'] ?? 0 ?> Sampel
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Min : <?= number_format($npp_pagi['min_r'] ?? 0, 2) ?>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Max : <?= number_format($npp_pagi['max_r'] ?? 0, 2) ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 bg-primary">
+                <div class="card-body bg-primary">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                NPP Sore
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= number_format($npp_sore['avg_r'] ?? 0, 2) ?><sub>(%R)</sub>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= $npp_sore['total'] ?? 0 ?> Sampel
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Min : <?= number_format($npp_sore['min_r'] ?? 0, 2) ?>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Max : <?= number_format($npp_sore['max_r'] ?? 0, 2) ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2 bg-primary">
+                <div class="card-body bg-primary">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                NPP Malam
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= number_format($npp_malam['avg_r'] ?? 0, 2) ?><sub>(%R)</sub>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= $npp_malam['total'] ?? 0 ?> Sampel
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Min : <?= number_format($npp_malam['min_r'] ?? 0, 2) ?>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Max : <?= number_format($npp_malam['max_r'] ?? 0, 2) ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
     <div class="card">
         <div class="card-body table-responsive">
@@ -52,72 +210,72 @@ include('header_rev.php');
 </div>
 
 <script>
-const today = new Date().toISOString().slice(0,10);
+    const today = new Date().toISOString().slice(0, 10);
 
-// 🔥 ambil dari API
-fetch('dashboard_engine.php?date=' + today)
-.then(res => res.json())
-.then(data => renderTable(data))
-.catch(err => {
-    console.error(err);
-    alert('Gagal load dashboard');
-});
-
-function renderTable(data) {
-
-    const map = {};
-
-    /* =========================================
-       INSERT DATA KE MAP
-    ========================================= */
-    function insert(arr, key) {
-        (arr || []).forEach(row => {
-
-            // pastikan format key per jam
-            const hourKey = row.created_at.substring(0,13);
-
-            if (!map[hourKey]) {
-                map[hourKey] = {};
-            }
-
-            map[hourKey][key] = parseFloat(row.value) || 0;
+    // 🔥 ambil dari API
+    fetch('dashboard_engine.php?date=' + today)
+        .then(res => res.json())
+        .then(data => renderTable(data))
+        .catch(err => {
+            console.error(err);
+            alert('Gagal load dashboard');
         });
-    }
 
-    insert(data.brix_npp, 'brix');
-    insert(data.pol_npp, 'pol');
-    insert(data.hk_npp, 'hk');
-    insert(data.rendemen_npp, 'rendemen');
-    insert(data.hk_tetes, 'hk_tetes');
-    insert(data.iu_gkp, 'iu_gkp');
-    insert(data.pol_ampas, 'pol_ampas');
-    insert(data.tebu_tergiling, 'tebu');
-    insert(data.flow_nm, 'nm');
-    insert(data.flow_imb, 'imb');
+    function renderTable(data) {
 
-    const tbody = document.querySelector('#dashboardTable tbody');
-    tbody.innerHTML = '';
+        const map = {};
 
-    /* =========================================
-       LOOP 24 JAM SHIFT
-       06:00 → 05:00
-    ========================================= */
-    const baseDate = new Date(today + 'T06:00:00');
+        /* =========================================
+           INSERT DATA KE MAP
+        ========================================= */
+        function insert(arr, key) {
+            (arr || []).forEach(row => {
 
-    for(let i = 0; i < 24; i++) {
+                // pastikan format key per jam
+                const hourKey = row.created_at.substring(0, 13);
 
-        const current = new Date(baseDate);
-        current.setHours(current.getHours() + i);
+                if (!map[hourKey]) {
+                    map[hourKey] = {};
+                }
 
-        const hourKey =
-            current.getFullYear() + '-' +
-            String(current.getMonth()+1).padStart(2,'0') + '-' +
-            String(current.getDate()).padStart(2,'0') + ' ' +
-            String(current.getHours()).padStart(2,'0');
+                map[hourKey][key] = parseFloat(row.value) || 0;
+            });
+        }
 
-        const row = map[hourKey] || {};
+        insert(data.brix_npp, 'brix');
+        insert(data.pol_npp, 'pol');
+        insert(data.hk_npp, 'hk');
+        insert(data.rendemen_npp, 'rendemen');
+        insert(data.hk_tetes, 'hk_tetes');
+        insert(data.iu_gkp, 'iu_gkp');
+        insert(data.pol_ampas, 'pol_ampas');
+        insert(data.tebu_tergiling, 'tebu');
+        insert(data.flow_nm, 'nm');
+        insert(data.flow_imb, 'imb');
 
-        tbody.innerHTML += `
+        const tbody = document.querySelector('#dashboardTable tbody');
+        tbody.innerHTML = '';
+
+        /* =========================================
+           LOOP 24 JAM SHIFT
+           06:00 → 05:00
+        ========================================= */
+        const baseDate = new Date(today + 'T06:00:00');
+
+        for (let i = 0; i < 24; i++) {
+
+            const current = new Date(baseDate);
+            current.setHours(current.getHours() + i);
+
+            const hourKey =
+                current.getFullYear() + '-' +
+                String(current.getMonth() + 1).padStart(2, '0') + '-' +
+                String(current.getDate()).padStart(2, '0') + ' ' +
+                String(current.getHours()).padStart(2, '0');
+
+            const row = map[hourKey] || {};
+
+            tbody.innerHTML += `
             <tr>
                 <td>${formatJam(current)}</td>
                 <td>${val(row.brix)}</td>
@@ -132,30 +290,30 @@ function renderTable(data) {
                 <td>${val(row.imb)}</td>
             </tr>
         `;
+        }
     }
-}
 
-/* =========================================
-   HELPERS
-========================================= */
+    /* =========================================
+       HELPERS
+    ========================================= */
 
-function val(v){
-    return (v || v === 0)
-        ? Number(v).toFixed(2)
-        : '';
-}
+    function val(v) {
+        return (v || v === 0) ?
+            Number(v).toFixed(2) :
+            '';
+    }
 
-function formatJam(dateObj){
+    function formatJam(dateObj) {
 
-    const h1 = String(dateObj.getHours()).padStart(2,'0');
+        const h1 = String(dateObj.getHours()).padStart(2, '0');
 
-    const next = new Date(dateObj);
-    next.setHours(next.getHours() + 1);
+        const next = new Date(dateObj);
+        next.setHours(next.getHours() + 1);
 
-    const h2 = String(next.getHours()).padStart(2,'0');
+        const h2 = String(next.getHours()).padStart(2, '0');
 
-    return `${h1}:00 - ${h2}:00`;
-}
+        return `${h1}:00 - ${h2}:00`;
+    }
 </script>
 
 <?php include('footer.php'); ?>

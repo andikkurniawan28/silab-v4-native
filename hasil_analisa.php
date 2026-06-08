@@ -54,12 +54,27 @@ $materialsQ = $conn->query("
 
     <h4 class="mb-4">Hasil Analisa <?= htmlspecialchars($station['name']); ?></h4>
 
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text"
+                    id="materialSearch"
+                    class="form-control"
+                    placeholder="Cari material...">
+            </div>
+        </div>
+    </div>
+
     <div class="row">
 
         <?php while ($material = $materialsQ->fetch_assoc()): ?>
 
             <?php
             $material_id = $material['id'];
+            $showPanVolume = in_array($material_id, [43,44,45,46,47,48,49]);
 
             /**
              * Indikator material
@@ -96,7 +111,8 @@ $materialsQ = $conn->query("
             ?>
 
             <!-- CARD -->
-            <div class="col-md-<?php if(count($indicators) >= 8) echo "12"; else echo "6"; ?> mb-4">
+            <div class="col-md-<?php if(count($indicators) >= 8) echo "12"; else echo "6"; ?> mb-4 material-card"
+                data-name="<?= strtolower($material['name']) ?>">
                 <div class="card shadow h-100">
 
                     <div class="card-header bg-dark text-white font-weight-bold">
@@ -115,6 +131,10 @@ $materialsQ = $conn->query("
                                         <tr>
                                             <th>Time</th>
                                             <th>ID</th>
+                                            <?php if ($showPanVolume): ?>
+                                                <th>Pan</th>
+                                                <th>Hl</th>
+                                            <?php endif; ?>
                                             <?php foreach ($indicators as $ind): ?>
                                                 <th><?= htmlspecialchars($ind['name']); ?></th>
                                             <?php endforeach; ?>
@@ -127,6 +147,10 @@ $materialsQ = $conn->query("
                                                     <?= date('d-m-Y H:i', strtotime($row['created_at'])); ?>
                                                 </td>
                                                 <td><?= $row['id'] ?></td>
+                                                <?php if ($showPanVolume): ?>
+                                                    <td><?= $row['pan'] ?></td>
+                                                    <td><?= $row['volume'] ?></td>
+                                                <?php endif; ?>
                                                 <?php foreach ($indicators as $ind): ?>
                                                     <?php
                                                         $key = str_replace(' ', '_', $ind['name']);
@@ -159,5 +183,22 @@ $materialsQ = $conn->query("
 
     </div>
 </div>
+
+<script>
+document.getElementById('materialSearch').addEventListener('keyup', function () {
+    let keyword = this.value.toLowerCase();
+    let cards = document.querySelectorAll('.material-card');
+
+    cards.forEach(function (card) {
+        let name = card.getAttribute('data-name');
+
+        if (name.includes(keyword)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+</script>
 
 <?php include('footer.php'); ?>

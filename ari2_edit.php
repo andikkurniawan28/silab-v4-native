@@ -117,7 +117,7 @@ $analisa = $q->fetch_assoc();
         pol = document.getElementById("pol_ari").value;
         brix = parseFloat(brix);
         pol = parseFloat(pol);
-        rendemen = (pol-(0.5*(brix-pol)))*0.7;
+        rendemen = (pol-(0.5*(brix-pol)))*0.6;
         document.getElementById("rendemen_ari").value = rendemen.toFixed(2);
     }
 
@@ -127,7 +127,7 @@ $analisa = $q->fetch_assoc();
         rendemen = document.getElementById("rendemen_ari").value;
         brix = parseFloat(brix);
         rendemen = parseFloat(rendemen);
-        pol = ((rendemen / 0.7) + (0.5 * brix)) / (1 + 0.5);
+        pol = ((rendemen / 0.6) + (0.5 * brix)) / (1 + 0.5);
         document.getElementById("pol_ari").value = pol.toFixed(2);
     }
 </script>

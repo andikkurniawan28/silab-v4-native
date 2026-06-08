@@ -28,6 +28,8 @@ require_once 'db.php';
 
 $material_id = intval($_GET['id'] ?? 0);
 
+$showPanVolume = in_array($material_id, [43,44,45,46,47,48,49]);
+
 // ========================
 // MATERIAL NAME
 // ========================
@@ -75,6 +77,11 @@ $indicators = $indicatorStmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             <th>Timestamp Laporan</th>
                             <!-- <th>Timestamp Riil</th> -->
 
+                            <?php if ($showPanVolume): ?>
+                                <th>Pan</th>
+                                <th>Hl</th>
+                            <?php endif; ?>
+
                             <?php foreach ($indicators as $ind): ?>
                                 <th><?= htmlspecialchars($ind['name']) ?></th>
                             <?php endforeach; ?>
@@ -94,6 +101,11 @@ $indicators = $indicatorStmt->get_result()->fetch_all(MYSQLI_ASSOC);
 <script>
 $(function () {
     const materialId = <?= $material_id ?>;
+
+    const panVolumeColumns = <?= $showPanVolume ? '[
+        { data: "pan" },
+        { data: "volume" }
+    ]' : '[]' ?>;
 
     const indicatorColumns = [
         <?php foreach ($indicators as $ind): ?>
@@ -115,6 +127,7 @@ $(function () {
             { data: 'id' },
             { data: 'created_at' },
             // { data: 'timestamp_riil' },
+            ...panVolumeColumns,
             ...indicatorColumns
         ],
         dom: 'lBfrtip',

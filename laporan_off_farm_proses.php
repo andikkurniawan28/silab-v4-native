@@ -90,9 +90,10 @@ function serve($conn, $date, $shift)
                 if (
                     $row['material_id'] == $materialId &&
                     isset($row[$column]) &&
+                    is_numeric($row[$column]) &&
                     $row[$column] != 0
                 ) {
-                    $sum += $row[$column];
+                    $sum += (float)$row[$column];
                     $count++;
                 }
             }
@@ -527,8 +528,8 @@ if($_POST['handling'] == 'export'){
                                 </tr>
                                 <tr>
                                     <td>Tebu Tergiling</td>
-                                    <td><?= number_format($tebu_tergiling, 2) ?></td>
-                                    <td>Kuintal</td>
+                                    <td><?= number_format($tebu_tergiling/10, 2) ?></td>
+                                    <td>Ton</td>
                                 </tr>
                                 <tr>
                                     <td>Nira Mentah dari Flow Pemurnian</td>

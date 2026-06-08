@@ -90,15 +90,25 @@ if (!empty($_GET['id'])) {
     mysqli_stmt_bind_param($stmt, "i", $id);
 } else {
     // Fallback ke kartu_ari
-    $kartu_ari = trim($_GET['kartu_ari']);
-    $sql = "SELECT * FROM analisa_on_farms WHERE kartu_ari = ?";
-    $stmt = mysqli_prepare($conn, $sql);
-    
-    if (!$stmt) {
-        response_error('Gagal mempersiapkan query', 500);
-    }
-    
-    mysqli_stmt_bind_param($stmt, "s", $kartu_ari);
+    // Fallback ke kartu_ari
+$kartu_ari = trim($_GET['kartu_ari']);
+
+$sql = "
+    SELECT *
+    FROM analisa_on_farms
+    WHERE kartu_ari = ?
+      AND rendemen_ari IS NULL
+    ORDER BY id DESC
+    LIMIT 1
+";
+
+$stmt = mysqli_prepare($conn, $sql);
+
+if (!$stmt) {
+    response_error('Gagal mempersiapkan query', 500);
+}
+
+mysqli_stmt_bind_param($stmt, "s", $kartu_ari);
 }
 
 /* =======================
@@ -217,7 +227,8 @@ if (
                 throw new Exception('Gagal mempersiapkan query insert');
             }
             
-            mysqli_stmt_bind_param($insert_stmt, "ss", $kartu_ari_value, 'K');
+            $jenisK = "K";
+            mysqli_stmt_bind_param($insert_stmt, "ss", $kartu_ari_value, $jenisK);
             
             if (!mysqli_stmt_execute($insert_stmt)) {
                 throw new Exception('Gagal insert ke tabel kartu_aris');

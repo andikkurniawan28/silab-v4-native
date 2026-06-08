@@ -40,6 +40,7 @@ include('header_rev.php');
                 <th>Nama</th>
                 <th>Username</th>
                 <th>Status</th>
+                <th>Token</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -65,6 +66,7 @@ $(function () {
             { data: 'name' },
             { data: 'username' },
             { data: 'is_active' },
+            { data: 'device_token' },
             { data: 'action', orderable:false }
         ]
     });

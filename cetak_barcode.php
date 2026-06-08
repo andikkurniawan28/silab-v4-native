@@ -68,11 +68,25 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     <h4 class="mb-3">Cetak Barcode <?= htmlspecialchars($station); ?></h4>
 
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text"
+                    id="materialSearch"
+                    class="form-control"
+                    placeholder="Cari material...">
+            </div>
+        </div>
+    </div>
+
     <!-- Content Row -->
     <div class="row">
 
         <?php foreach ($materials as $material): ?>
-            <div class="col-lg-3 col-md-3 mb-4">
+            <div class="col-lg-3 col-md-3 mb-4 material-card" data-name="<?= strtolower($material['name']) ?>">
                 <div class="card bg-dark text-white text-xs shadow">
                     <div class="card-body">
 
@@ -125,5 +139,22 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
 
 </div>
+
+<script>
+document.getElementById('materialSearch').addEventListener('keyup', function () {
+    let keyword = this.value.toLowerCase();
+    let cards = document.querySelectorAll('.material-card');
+
+    cards.forEach(function (card) {
+        let name = card.getAttribute('data-name');
+
+        if (name.includes(keyword)) {
+            card.style.display = '';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
+</script>
 
 <?php include('footer.php'); ?>

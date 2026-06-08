@@ -3,6 +3,8 @@ require_once 'db.php';
 
 $material_id = intval($_GET['material_id'] ?? 0);
 
+$showPanVolume = in_array($material_id, [43,44,45,46,47,48,49]);
+
 // ========================
 // DATATABLES PARAM
 // ========================

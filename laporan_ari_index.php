@@ -52,6 +52,29 @@ include('header_rev.php');
                             </select>
                         </div>
                     </div>
+
+                    <!-- GROUP BY -->
+                    <div class="form-group">
+                        <label><strong>Kelompokkan</strong></label>
+                        <div class="input-group">
+                            <select class="form-control" name="group_by">
+                                <option value="ari_at">Timestamp</option>
+                                <option value="register">Register</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ORDERING -->
+                    <div class="form-group">
+                        <label><strong>Metode Pengurutan</strong></label>
+                        <div class="input-group">
+                            <select class="form-control" name="ordering_method">
+                                <option value="ASC">Ascending (A-Z)</option>
+                                <option value="DESC">Descending (Z-A)</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <button type="submit" name="handling" value="print" class="btn btn-warning text-dark">Print <i class='fas fa-print'></i></button>
                         <button type="submit" name="handling" value="export" class="btn btn-warning text-dark">Export <i class='fas fa-download'></i></button>
