@@ -246,7 +246,7 @@ function servePenggunaanBPP($conn, $date, $shift)
             'id'    => $kspot['id'],
             'name'  => $kspot['name'],
             'value' => $kspot['count'] > 0
-                ? round($kspot['sum'] / $kspot['count'], 2)
+                ? round($kspot['sum'], 2)
                 : null
         ];
     }
@@ -347,7 +347,10 @@ if($_POST['handling'] == 'export'){
     header('Content-Disposition: attachment; filename=Laporan_Off_Farm_' . $_POST["date"] . '.xls');
 }
 
+// var_dump($time);
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

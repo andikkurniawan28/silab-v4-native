@@ -149,6 +149,23 @@ $dashboard['pol_ampas'] = getHourlyAvg($conn, "
 ", $start, $end);
 
 /* =====================================================
+   7. Zk Ampas (material_id = 12)
+===================================================== */
+$dashboard['zk_ampas'] = getHourlyAvg($conn, "
+    SELECT 
+        DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS created_at,
+        AVG(`%Zk`) AS value
+    FROM analisa_off_farm_new
+    WHERE material_id = 12
+      AND is_verified = 1
+      AND `%Zk` IS NOT NULL
+      AND `%Zk` != 0
+      AND created_at BETWEEN ? AND ?
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H')
+    ORDER BY created_at ASC
+", $start, $end);
+
+/* =====================================================
    7. TABLE BALANCES
 ===================================================== */
 
@@ -168,6 +185,17 @@ $dashboard['flow_nm'] = getHourlyAvg($conn, "
     SELECT 
         DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS created_at,
         AVG(flow_nm) AS value
+    FROM balances
+    WHERE created_at BETWEEN ? AND ?
+    GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H')
+    ORDER BY created_at ASC
+", $start, $end);
+
+// Flow NM
+$dashboard['nm_persen_tebu'] = getHourlyAvg($conn, "
+    SELECT 
+        DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00') AS created_at,
+        AVG(nm_persen_tebu) AS value
     FROM balances
     WHERE created_at BETWEEN ? AND ?
     GROUP BY DATE_FORMAT(created_at, '%Y-%m-%d %H')

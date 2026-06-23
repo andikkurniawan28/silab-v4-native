@@ -263,7 +263,7 @@
         <p style="position:absolute;top:952px;left:517px;white-space:nowrap" class="ft15">&#160;</p>
         <p style="position:absolute;top:952px;left:572px;white-space:nowrap" class="ft15">&#160;</p>
         <p style="position:absolute;top:952px;left:640px;white-space:nowrap" class="ft16">
-            <b>&#160;&#160;&#160;&#160;&#160;Tri&#160;Sunu&#160;Hardi&#160;</b></p>
+            <b>&#160;&#160;&#160;&#160;&#160;Yudho&#160;Widhi&#160;Nugroho&#160;</b></p>
         <p style="position:absolute;top:976px;left:85px;white-space:nowrap" class="ft16"><b>&#160;</b></p>
         <p style="position:absolute;top:976px;left:226px;white-space:nowrap" class="ft16"><b>&#160;</b></p>
         <p style="position:absolute;top:976px;left:248px;white-space:nowrap" class="ft16"><b>&#160;</b></p>

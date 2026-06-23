@@ -24,7 +24,7 @@ $sql = "
     INNER JOIN materials m 
         ON a.material_id = m.id
     WHERE a.created_at BETWEEN ? AND ?
-      AND a.material_id IN (154,156)
+      AND a.material_id IN (154,156,465)
     ORDER BY a.created_at ASC
 ";
 

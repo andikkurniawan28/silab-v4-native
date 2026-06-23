@@ -39,7 +39,7 @@ include('header_rev.php');
     }
 
     // Rentang shift berdasarkan hari produksi
-    $pagi_start  = $production_date . ' 06:00:00';
+    $pagi_start  = $production_date . ' 05:00:00';
     $pagi_end    = $production_date . ' 12:59:59';
 
     $sore_start  = $production_date . ' 13:00:00';
@@ -51,48 +51,47 @@ include('header_rev.php');
 
     // PAGI
     $npp_pagi = $conn->query("
-    SELECT
-        AVG(`%R`) AS avg_r,
-        MIN(`%R`) AS min_r,
-        MAX(`%R`) AS max_r,
-        COUNT(*) AS total
-    FROM analisa_off_farm_new
-    WHERE material_id = 3
-      AND is_verified = 1
-      AND created_at BETWEEN '$pagi_start' AND '$pagi_end'
-")->fetch_assoc();
+        SELECT
+            AVG(`%R`) AS avg_r,
+            MIN(`%R`) AS min_r,
+            MAX(`%R`) AS max_r,
+            COUNT(*) AS total
+        FROM analisa_off_farm_new
+        WHERE material_id = 3
+        AND is_verified = 1
+        AND created_at BETWEEN '$pagi_start' AND '$pagi_end'
+    ")->fetch_assoc();
 
 
     // SORE
     $npp_sore = $conn->query("
-    SELECT
-        AVG(`%R`) AS avg_r,
-        MIN(`%R`) AS min_r,
-        MAX(`%R`) AS max_r,
-        COUNT(*) AS total
-    FROM analisa_off_farm_new
-    WHERE material_id = 3
-      AND is_verified = 1
-      AND created_at BETWEEN '$sore_start' AND '$sore_end'
-")->fetch_assoc();
+        SELECT
+            AVG(`%R`) AS avg_r,
+            MIN(`%R`) AS min_r,
+            MAX(`%R`) AS max_r,
+            COUNT(*) AS total
+        FROM analisa_off_farm_new
+        WHERE material_id = 3
+        AND is_verified = 1
+        AND created_at BETWEEN '$sore_start' AND '$sore_end'
+    ")->fetch_assoc();
 
 
     // MALAM
     $npp_malam = $conn->query("
-    SELECT
-        AVG(`%R`) AS avg_r,
-        MIN(`%R`) AS min_r,
-        MAX(`%R`) AS max_r,
-        COUNT(*) AS total
-    FROM analisa_off_farm_new
-    WHERE material_id = 3
-      AND is_verified = 1
-      AND created_at BETWEEN '$malam_start' AND '$malam_end'
-")->fetch_assoc();
+        SELECT
+            AVG(`%R`) AS avg_r,
+            MIN(`%R`) AS min_r,
+            MAX(`%R`) AS max_r,
+            COUNT(*) AS total
+        FROM analisa_off_farm_new
+        WHERE material_id = 3
+        AND is_verified = 1
+        AND created_at BETWEEN '$malam_start' AND '$malam_end'
+    ")->fetch_assoc();
 
     ?>
     <div class="row">
-
         <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2 bg-primary">
                 <div class="card-body bg-primary">
@@ -122,7 +121,6 @@ include('header_rev.php');
                 </div>
             </div>
         </div>
-
         <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2 bg-primary">
                 <div class="card-body bg-primary">
@@ -152,7 +150,6 @@ include('header_rev.php');
                 </div>
             </div>
         </div>
-
         <div class="col-xl-4 col-md-6 mb-4">
             <div class="card border-left-primary shadow h-100 py-2 bg-primary">
                 <div class="card-body bg-primary">
@@ -182,8 +179,137 @@ include('header_rev.php');
                 </div>
             </div>
         </div>
-
     </div>
+
+    <?php
+
+    // PAGI
+    $ari_pagi = $conn->query("
+        SELECT
+            AVG(rendemen_ari) AS avg_r,
+            MIN(rendemen_ari) AS min_r,
+            MAX(rendemen_ari) AS max_r,
+            COUNT(*) AS total
+        FROM analisa_on_farms
+        WHERE ari_at BETWEEN '$pagi_start' AND '$pagi_end'
+    ")->fetch_assoc();
+
+
+    // SORE
+    $ari_sore = $conn->query("
+        SELECT
+            AVG(rendemen_ari) AS avg_r,
+            MIN(rendemen_ari) AS min_r,
+            MAX(rendemen_ari) AS max_r,
+            COUNT(*) AS total
+        FROM analisa_on_farms
+        WHERE ari_at BETWEEN '$sore_start' AND '$sore_end'
+    ")->fetch_assoc();
+
+
+    // MALAM
+    $ari_malam = $conn->query("
+        SELECT
+            AVG(rendemen_ari) AS avg_r,
+            MIN(rendemen_ari) AS min_r,
+            MAX(rendemen_ari) AS max_r,
+            COUNT(*) AS total
+        FROM analisa_on_farms
+        WHERE ari_at BETWEEN '$malam_start' AND '$malam_end'
+    ")->fetch_assoc();
+
+    ?>
+
+    <div class="row">
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2 bg-danger">
+                <div class="card-body bg-danger">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                ARI Pagi
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= number_format($ari_pagi['avg_r'] ?? 0, 2) ?><sub>(%R)</sub>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= $ari_pagi['total'] ?? 0 ?> Sampel
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Min : <?= number_format($ari_pagi['min_r'] ?? 0, 2) ?>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Max : <?= number_format($ari_pagi['max_r'] ?? 0, 2) ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2 bg-danger">
+                <div class="card-body bg-danger">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                ARI Sore
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= number_format($ari_sore['avg_r'] ?? 0, 2) ?><sub>(%R)</sub>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= $ari_sore['total'] ?? 0 ?> Sampel
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Min : <?= number_format($ari_sore['min_r'] ?? 0, 2) ?>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Max : <?= number_format($ari_sore['max_r'] ?? 0, 2) ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-md-6 mb-4">
+            <div class="card border-left-danger shadow h-100 py-2 bg-danger">
+                <div class="card-body bg-danger">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-white text-uppercase mb-1">
+                                ARI Malam
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= number_format($ari_malam['avg_r'] ?? 0, 2) ?><sub>(%R)</sub>
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                <?= $ari_malam['total'] ?? 0 ?> Sampel
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Min : <?= number_format($ari_malam['min_r'] ?? 0, 2) ?>
+                            </div>
+
+                            <div class="h5 mb-0 font-weight-bold text-white">
+                                Max : <?= number_format($ari_malam['max_r'] ?? 0, 2) ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-percent fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <div class="card">
         <div class="card-body table-responsive">
@@ -193,13 +319,15 @@ include('header_rev.php');
                         <th>Jam</th>
                         <th>Brix NPP</th>
                         <th>Pol NPP</th>
-                        <th>HK NPP</th>
+                        <!-- <th>HK NPP</th> -->
                         <th>%R NPP</th>
                         <th>Pol Ampas</th>
+                        <th>Zat Kering</th>
                         <th>HK Tetes</th>
                         <th>IU GKP</th>
                         <th>Tebu Tergiling</th>
                         <th>Flow NM</th>
+                        <th>NM%TEBU</th>
                         <th>Flow IMB</th>
                     </tr>
                 </thead>
@@ -249,9 +377,11 @@ include('header_rev.php');
         insert(data.hk_tetes, 'hk_tetes');
         insert(data.iu_gkp, 'iu_gkp');
         insert(data.pol_ampas, 'pol_ampas');
+        insert(data.zk_ampas, 'zk_ampas');
         insert(data.tebu_tergiling, 'tebu');
         insert(data.flow_nm, 'nm');
         insert(data.flow_imb, 'imb');
+        insert(data.nm_persen_tebu, 'nm_persen_tebu');
 
         const tbody = document.querySelector('#dashboardTable tbody');
         tbody.innerHTML = '';
@@ -280,13 +410,14 @@ include('header_rev.php');
                 <td>${formatJam(current)}</td>
                 <td>${val(row.brix)}</td>
                 <td>${val(row.pol)}</td>
-                <td>${val(row.hk)}</td>
                 <td>${val(row.rendemen)}</td>
                 <td>${val(row.pol_ampas)}</td>
+                <td>${val(row.zk_ampas)}</td>
                 <td>${val(row.hk_tetes)}</td>
                 <td>${val(row.iu_gkp)}</td>
                 <td>${val(row.tebu)}</td>
                 <td>${val(row.nm)}</td>
+                <td>${val(row.nm_persen_tebu)}</td>
                 <td>${val(row.imb)}</td>
             </tr>
         `;

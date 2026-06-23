@@ -122,6 +122,9 @@ if ($result) {
                 <a class="collapse-item" href="ari2_belum_teranalisa.php">ARI 2 Belum Teranalisa</a>
                 <!-- <a class="collapse-item" href="penilaian_tebu_index.php">Penilaian Tebu</a> -->
                 <a class="collapse-item" href="master_on_farm_index.php">Master On Farm</a>
+                <a class="collapse-item" href="/silab-v3/public/index.php/sync_on_farm_timbang_bruto" target="_blank">Sync Timbang Bruto</a>
+                <a class="collapse-item" href="/silab-v3/public/index.php/sync_on_farm_pos_barcode" target="_blank">Sync Pos Barcode</a>
+                <a class="collapse-item" href="/silab-v3/public/index.php/sync_all" target="_blank">Sync All</a>
             </div>
         </div>
     </li>
@@ -143,6 +146,8 @@ if ($result) {
                 <a class="collapse-item" href="laporan_mbs_index.php">Laporan MBS</a>
                 <a class="collapse-item" href="coa_tetes_index.php">COA Tetes</a>
                 <a class="collapse-item" href="coa_kapur_index.php">COA Kapur</a>
+                <a class="collapse-item" href="laporan_rerata_material_index.php">Laporan Rerata Material</a>
+                <a class="collapse-item" href="laporan_rekap_timbangan_index.php">Laporan Rekap Timbangan</a>
             </div>
         </div>
     </li>

@@ -1,13 +1,13 @@
 # Require all denied
 
-Require ip 127.0.0.1
-Require ip ::1
-Require ip 192.168.29.0/24
-Require ip 192.168.28.0/24
-Require ip 192.168.20.0/24
-Require ip 192.168.41.0/24
+# Require ip 127.0.0.1
+# Require ip ::1
+# Require ip 192.168.29.0/24
+# Require ip 192.168.28.0/24
+# Require ip 192.168.20.0/24
+# Require ip 192.168.41.0/24
 
-Require ip 192.168.0.0/16
+# Require ip 192.168.0.0/16
 
 # Untuk mengizinkan akses dari IP manapun, uncomment baris berikut:
 # Require all granted

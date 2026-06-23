@@ -20,6 +20,9 @@ $date       = $_POST['date'];
 $hour       = $_POST['created_at'];
 $tebu       = floatval($_POST['tebu']);
 $totalizer  = floatval($_POST['totalizer']);
+$totalizer_gilingan  = floatval($_POST['totalizer_gilingan']);
+$totalizer_decanter_1st  = floatval($_POST['totalizer_decanter_1st']);
+$totalizer_decanter_2nd  = floatval($_POST['totalizer_decanter_2nd']);
 
 $created_at = generateTimestamp($date,$hour);
 
@@ -30,16 +33,22 @@ if($last){
     $factor = findFactor($conn,'Raw Juice');
     $flow_nm = $factor * ($totalizer - $last['totalizer']);
     $nm_persen_tebu = ($flow_nm / $tebu) * 1000;
+    $flow_nm_gilingan = $totalizer_gilingan - $last['totalizer_gilingan'];
+    $flow_decanter_1st = $totalizer_decanter_1st - $last['totalizer_decanter_1st'];
+    $flow_decanter_2nd = $totalizer_decanter_2nd - $last['totalizer_decanter_2nd'];
 }else{
     $flow_nm = 0;
     $nm_persen_tebu = 0;
+    $flow_nm_gilingan = 0;
+    $flow_decanter_1st = 0;
+    $flow_decanter_2nd = 0;
 }
 
 $conn->query("
     INSERT INTO balances
-    (tebu,totalizer,flow_nm,nm_persen_tebu,created_at,user_id)
+    (tebu,totalizer,flow_nm,nm_persen_tebu,created_at,user_id,totalizer_decanter_1st,totalizer_decanter_2nd,flow_decanter_1st,flow_decanter_2nd,totalizer_gilingan,flow_nm_gilingan)
     VALUES
-    ('$tebu','$totalizer','$flow_nm','$nm_persen_tebu','$created_at','".$_SESSION['user_id']."')
+    ('$tebu','$totalizer','$flow_nm','$nm_persen_tebu','$created_at','".$_SESSION['user_id']."','$totalizer_decanter_1st', '$totalizer_decanter_2nd', '$flow_decanter_1st', '$flow_decanter_2nd','$totalizer_gilingan','$flow_nm_gilingan')
 ");
 
 $_SESSION['flash'] = [
