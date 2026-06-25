@@ -309,7 +309,114 @@ include('header_rev.php');
             </div>
         </div>
     </div>
-    
+
+    <?php
+
+    function getJumlahPurity($conn, $table, $start, $end, $type)
+    {
+        if ($type == 'offfarm') {
+            return $conn->query("
+                    SELECT COUNT(*) AS total
+                    FROM analisa_off_farm_new
+                    WHERE created_at BETWEEN '$start' AND '$end'
+                    AND material_id != 3
+                    AND Pol IS NOT NULL
+                ")->fetch_assoc();
+        }
+
+        if ($type == 'npp') {
+            return $conn->query("
+                    SELECT COUNT(*) AS total
+                    FROM analisa_off_farm_new
+                    WHERE created_at BETWEEN '$start' AND '$end'
+                    AND material_id = 3
+                    AND Pol IS NOT NULL
+                ")->fetch_assoc();
+        }
+
+        if ($type == 'ari') {
+            return $conn->query("
+                    SELECT COUNT(*) AS total
+                    FROM analisa_on_farms
+                    WHERE ari_at BETWEEN '$start' AND '$end'
+                    AND rendemen_ari IS NOT NULL
+                ")->fetch_assoc();
+        }
+    }
+
+
+    // PAGI
+    $offfarm_pagi = getJumlahPurity($conn, 'analisa_off_farm_new', $pagi_start, $pagi_end, 'offfarm');
+    $npp_pagi     = getJumlahPurity($conn, 'analisa_off_farm_new', $pagi_start, $pagi_end, 'npp');
+    $ari_pagi     = getJumlahPurity($conn, 'analisa_on_farms', $pagi_start, $pagi_end, 'ari');
+
+    // SIANG
+    $offfarm_siang = getJumlahPurity($conn, 'analisa_off_farm_new', $sore_start, $sore_end, 'offfarm');
+    $npp_siang     = getJumlahPurity($conn, 'analisa_off_farm_new', $sore_start, $sore_end, 'npp');
+    $ari_siang     = getJumlahPurity($conn, 'analisa_on_farms', $sore_start, $sore_end, 'ari');
+
+    // MALAM
+    $offfarm_malam = getJumlahPurity($conn, 'analisa_off_farm_new', $malam_start, $malam_end, 'offfarm');
+    $npp_malam     = getJumlahPurity($conn, 'analisa_off_farm_new', $malam_start, $malam_end, 'npp');
+    $ari_malam     = getJumlahPurity($conn, 'analisa_on_farms', $malam_start, $malam_end, 'ari');
+
+    ?>
+
+    <div class="row">
+
+        <?php
+        $data = [
+            'Pagi' => [$offfarm_pagi, $npp_pagi, $ari_pagi],
+            'Sore' => [$offfarm_siang, $npp_siang, $ari_siang],
+            'Malam' => [$offfarm_malam, $npp_malam, $ari_malam]
+        ];
+
+        foreach ($data as $shift => $val):
+        ?>
+
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card shadow h-100 py-2 bg-secondary">
+                    <div class="card-body text-white">
+
+                        <div class="text-xs font-weight-bold text-uppercase mb-3">
+                            Estimasi Penggunaan Form AB <?= $shift ?>
+                        </div>
+
+                        <div class="row no-gutters align-items-center">
+
+                            <div class="col mr-6">
+
+                                <div class="mb-2">
+                                    <b>Lab Off Farm :</b>
+                                    <?= $val[0]['total'] ?> Sampel * 5mL = <?= $val[0]['total'] * 5 ?> mL
+                                </div>
+
+                                <div class="mb-2">
+                                    <b>Lab NPP :</b>
+                                    <?= $val[1]['total'] ?> Sampel * 5mL = <?= $val[1]['total'] * 5 ?> mL
+                                </div>
+
+                                <div>
+                                    <b>Lab ARI :</b>
+                                    <?= $val[2]['total'] ?> Sampel * 5mL = <?= $val[2]['total'] * 5 ?> mL
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-auto">
+                                <i class="fas fa-flask fa-2x text-white"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        <?php endforeach; ?>
+
+    </div>
 
     <div class="card">
         <div class="card-body table-responsive">

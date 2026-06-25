@@ -148,6 +148,7 @@ if ($result) {
                 <a class="collapse-item" href="coa_kapur_index.php">COA Kapur</a>
                 <a class="collapse-item" href="laporan_rerata_material_index.php">Laporan Rerata Material</a>
                 <a class="collapse-item" href="laporan_rekap_timbangan_index.php">Laporan Rekap Timbangan</a>
+                <a class="collapse-item" href="laporan_rekap_bpp_index.php">Laporan Rekap BPP</a>
             </div>
         </div>
     </li>
