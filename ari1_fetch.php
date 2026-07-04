@@ -54,6 +54,7 @@ while ($row = $query->fetch_assoc()) {
         'id' => $row['id'],
         'gelas' => $row['kartu_core'],
         'nomor_antrian' => $row['nomor_antrian'],
+        'nopol' => $row['nopol'],
         'brix_core' => $row['brix_core'],
         'pol_core' => $row['pol_core'],
         'pol_baca_core' => $row['pol_baca_core'],

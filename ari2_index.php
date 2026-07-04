@@ -35,6 +35,7 @@ include('header_rev.php');
                 <th>Gelas</th>
                 <th>Timestamp</th>
                 <th>Antrian</th>
+                <th>Nopol</th>
                 <th>Brix</th>
                 <th>Pol</th>
                 <th>Z</th>
@@ -53,7 +54,7 @@ $(function () {
     $('#ari2Table').DataTable({
         processing: true,
         serverSide: true,
-        order: [[0,'desc']],
+        order: [[2,'desc']],
         ajax: {
             url: 'ari2_fetch.php',
             type: 'POST'
@@ -63,6 +64,7 @@ $(function () {
             { data: 'gelas' },
             { data: 'timestamp' },
             { data: 'nomor_antrian' },
+            { data: 'nopol' },
             { data: 'brix_ari' },
             { data: 'pol_ari' },
             { data: 'pol_baca_ari' },

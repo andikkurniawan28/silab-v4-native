@@ -1,48 +1,70 @@
 <?php
 include('db.php');
 
-$columns = ['id', 'nomor_antrian'];
+$columns = [
+    'id',              // 0
+    'kartu_ari',       // 1
+    'ari_at',          // 2 ← timestamp
+    'nomor_antrian',   // 3
+    'nopol',   // 3
+    'brix_ari',        // 4
+    'pol_ari',         // 5
+    'pol_baca_ari',    // 6
+    'rendemen_ari',    // 7
+    'id'               // 8 action (dummy)
+];
 
-$limit  = intval($_POST['length'] ?? 10);
-$start  = intval($_POST['start'] ?? 0);
-$order  = $columns[$_POST['order'][0]['column'] ?? 0];
-$dir    = $_POST['order'][0]['dir'] === 'desc' ? 'DESC' : 'ASC';
+$limit = intval($_POST['length'] ?? 10);
+$start = intval($_POST['start'] ?? 0);
+
+$orderIndex = intval($_POST['order'][0]['column'] ?? 0);
+$order = $columns[$orderIndex] ?? 'ari_at';
+
+$dir = ($_POST['order'][0]['dir'] ?? 'desc') === 'asc'
+    ? 'ASC'
+    : 'DESC';
+
 $search = $conn->real_escape_string($_POST['search']['value'] ?? '');
 
-/* BASE SUBQUERY — hanya 1000 data terakhir */
 $baseTable = "
-    (
-        SELECT *
-        FROM analisa_on_farms
-        WHERE kartu_ari IS NOT NULL
-        ORDER BY id DESC
-        LIMIT 1000
-    ) AS t
+(
+    SELECT *
+    FROM analisa_on_farms
+    WHERE kartu_ari IS NOT NULL
+    ORDER BY ari_at DESC
+    LIMIT 1000
+) t
 ";
 
-/* WHERE */
 $where = "WHERE 1=1";
+
 if ($search !== '') {
-    $where .= " AND nomor_antrian LIKE '%$search%' OR id LIKE '%$search%' OR kartu_ari LIKE '%$search%'";
+    $where .= "
+        AND (
+            nomor_antrian LIKE '%$search%'
+            OR id LIKE '%$search%'
+            OR kartu_ari LIKE '%$search%'
+        )
+    ";
 }
 
-/* total data (max 1000) */
 $totalData = $conn->query("
-    SELECT COUNT(*) FROM $baseTable
+    SELECT COUNT(*)
+    FROM $baseTable
 ")->fetch_row()[0];
 
-/* total filtered */
 $totalFiltered = $conn->query("
-    SELECT COUNT(*) FROM $baseTable $where
-")->fetch_row()[0];
-
-/* data */
-$sql = "
-    SELECT *
+    SELECT COUNT(*)
     FROM $baseTable
     $where
-    ORDER BY $order $dir
-    LIMIT $start, $limit
+")->fetch_row()[0];
+
+$sql = "
+SELECT *
+FROM $baseTable
+$where
+ORDER BY $order $dir
+LIMIT $start, $limit
 ";
 
 $query = $conn->query($sql);
@@ -53,20 +75,22 @@ while ($row = $query->fetch_assoc()) {
     $data[] = [
         'id' => $row['id'],
         'gelas' => $row['kartu_ari'],
+        'timestamp' => $row['ari_at'],
         'nomor_antrian' => $row['nomor_antrian'],
+        'nopol' => $row['nopol'],
         'brix_ari' => $row['brix_ari'],
         'pol_ari' => $row['pol_ari'],
         'pol_baca_ari' => $row['pol_baca_ari'],
         'rendemen_ari' => $row['rendemen_ari'],
-        'timestamp' => $row['ari_at'],
         'action' => '
-            <a href="ari2_edit.php?id='.$row['id'].'" 
+            <a href="ari2_edit.php?id='.$row['id'].'"
                class="btn btn-warning btn-sm">
-                Edit
-            </a>
-        '
+               Edit
+            </a>'
     ];
 }
+
+header('Content-Type: application/json');
 
 echo json_encode([
     "draw" => intval($_POST['draw'] ?? 1),

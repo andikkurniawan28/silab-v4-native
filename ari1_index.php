@@ -35,6 +35,7 @@ include('header_rev.php');
                 <th>Gelas</th>
                 <th>Timestamp</th>
                 <th>Antrian</th>
+                <th>Nopol</th>
                 <th>Brix</th>
                 <th>Pol</th>
                 <th>Z</th>
@@ -63,6 +64,7 @@ $(function () {
             { data: 'gelas' },
             { data: 'timestamp' },
             { data: 'nomor_antrian' },
+            { data: 'nopol' },
             { data: 'brix_core' },
             { data: 'pol_core' },
             { data: 'pol_baca_core' },

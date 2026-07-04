@@ -38,7 +38,7 @@ $materials = $conn->query($sql_material)->fetch_all(MYSQLI_ASSOC);
 $sql_avg = "
     SELECT
         material_id,
-        AVG(`%Brix`) AS brix,
+        AVG(`%_Brix_(Brixwegger)`) AS brix,
         AVG(TSAI)    AS tsai,
         AVG(OD)      AS od
     FROM analisa_off_farm_new
