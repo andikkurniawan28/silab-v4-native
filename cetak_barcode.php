@@ -94,9 +94,17 @@ while ($row = mysqli_fetch_assoc($result)) {
                             <?= htmlspecialchars($material['name']); ?>
                         </div>
 
+                        <?php
+                        if (empty($_SESSION['form_token'])) {
+                            $_SESSION['form_token'] = bin2hex(random_bytes(32));
+                        }
+                        ?>
+
                         <form action="cetak_barcode_proses.php"
                               method="POST"
                               class="form-prevent">
+
+                            <!-- <input type="hidden" name="form_token" value="<?= $_SESSION['form_token']; ?>"> -->
 
                             <input type="hidden" name="material_id"
                                    value="<?= $material['id']; ?>">
@@ -154,6 +162,29 @@ document.getElementById('materialSearch').addEventListener('keyup', function () 
             card.style.display = 'none';
         }
     });
+});
+</script>
+
+<script>
+document.querySelectorAll('.form-prevent').forEach(function(form){
+
+    let submitting = false;
+
+    form.addEventListener('submit', function(e){
+
+        if(submitting){
+            e.preventDefault();
+            return false;
+        }
+
+        submitting = true;
+
+        const btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mencetak...';
+
+    });
+
 });
 </script>
 
